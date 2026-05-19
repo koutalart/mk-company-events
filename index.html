@@ -283,6 +283,49 @@
     .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--grey)}
     .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
 
+    /* ═══ FLYER STRIP ═══ */
+    .flyer-strip{background:var(--dark2);border-top:1px solid var(--border)}
+    .fs-inner{max-width:var(--max);margin:0 auto;padding:32px 20px 36px}
+    .fs-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white);margin-bottom:20px}
+    .fs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .fcard{display:block;text-decoration:none;color:var(--white);border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--dark3);transition:transform .2s,border-color .2s;touch-action:manipulation}
+    .fcard:active{transform:scale(.98)}
+    .fcard-bg{position:relative;aspect-ratio:9/12;overflow:hidden}
+    /* NNB2 gradient — couleurs du flyer (ciel bleu, jaune, rose) */
+    .fcard-nnb2{background:linear-gradient(175deg,#5aAFE0 0%,#2980D0 25%,#1044A0 45%,#CC0070 72%,#FF8C00 88%,#FFD600 100%)}
+    .fcard-inner-nnb2{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center}
+    .fcard-art{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,4vw,42px);line-height:.85;letter-spacing:1px;color:rgba(255,255,255,.15);-webkit-text-stroke:1px rgba(255,255,255,.35)}
+    .fcard-art span{font-size:clamp(28px,5.5vw,54px);display:block;background:linear-gradient(90deg,#FFD600,#FFA500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;-webkit-text-stroke:0}
+    .fcard-art em{font-style:normal;font-size:clamp(56px,12vw,110px);display:block;background:linear-gradient(135deg,#00E5FF,#A020F0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;-webkit-text-stroke:0;line-height:.8}
+    /* Soma gradient — couleurs du flyer (bleu eau, pink, teal) */
+    .fcard-soma{background:linear-gradient(175deg,#00C8F0 0%,#0090DD 30%,#005590 55%,#D0006B 78%,#00CED1 100%)}
+    .fcard-inner-soma{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center}
+    .fcard-art-soma{color:rgba(255,255,255,.15);-webkit-text-stroke:1px rgba(255,255,255,.3)}
+    .fcard-art-soma span{background:linear-gradient(90deg,#00CED1,#FF69B4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;-webkit-text-stroke:0;font-size:clamp(28px,5.5vw,54px);display:block}
+    /* Badge "À venir" positionné sur la carte */
+    .fcard-bg::after{content:'À VENIR';position:absolute;top:10px;left:10px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:#fff;backdrop-filter:blur(8px)}
+    .fcard-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-top:1px solid rgba(255,26,117,.15)}
+    .fcard-foot-left{flex:1;min-width:0}
+    .fcard-date{font-size:10px;color:var(--grey);font-weight:600;display:flex;align-items:center;gap:5px;margin-bottom:3px}
+    .fcard-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2.5vw,20px);background:linear-gradient(90deg,#fff,var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .fcard-artists{font-size:10px;color:var(--grey);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .fcard-cta{flex-shrink:0;text-align:right}
+    .fcard-paf{font-family:'Bebas Neue',sans-serif;font-size:16px;background:linear-gradient(90deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+    .fcard-btn{margin-top:4px;font-size:11px;font-weight:700;color:var(--pink);background:rgba(255,26,117,.08);border:1px solid rgba(255,26,117,.2);border-radius:6px;padding:4px 10px;white-space:nowrap}
+
+    /* ═══ MOBILE NAV BOTTOM BAR ═══ */
+    .mob-nav{
+      display:none;
+      position:fixed;bottom:0;left:0;right:0;z-index:210;
+      background:rgba(9,9,15,.98);border-top:1px solid var(--border);
+      /* cachée par défaut, seulement sur mobile */
+    }
+    .mob-nav-inner{display:flex;align-items:center;justify-content:space-around;padding:8px 0;padding-bottom:max(8px,var(--safe-b))}
+    .mob-nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--grey);padding:4px 16px;min-width:64px;touch-action:manipulation}
+    .mob-nav-item.active{color:var(--pink)}
+    .mob-nav-item svg{width:20px;height:20px;stroke:currentColor}
+    .mob-nav-label{font-size:10px;font-weight:700;letter-spacing:.3px}
+
     /* ═══ RESPONSIVE ═══ */
     @media(max-width:1024px){
       .main-layout{grid-template-columns:1fr;gap:28px}
@@ -293,9 +336,14 @@
     /* ── MOBILE ── */
     @media(max-width:768px){
       nav{padding:0 16px;height:52px}
-      .nav-links{display:none} /* hamburger si besoin plus tard */
-      .sticky-bar{top:52px;padding:8px 14px}
-      .sb-meta{display:none}
+      /* Sur mobile : masquer liens nav du haut, remplacés par la bottom-nav */
+      .nav-links{display:none}
+      /* Sticky bar : masquée sur mobile (la bottom-nav suffit) */
+      .sticky-bar{display:none}
+      /* Mobile nav bottom */
+      .mob-nav{display:block}
+      /* Compenser la hauteur de la mob-nav */
+      body{padding-bottom:60px}
 
       .hero{padding-top:52px}
       .hero-content{padding:20px 16px 0;text-align:center}
@@ -314,7 +362,10 @@
 
       .marquee{margin-top:28px}
 
-      .main-layout{padding:24px 16px 100px} /* 100px = espace pour la mob-bar */
+      .main-layout{padding:24px 16px 20px}
+      .fs-grid{grid-template-columns:1fr 1fr}
+      .flyer-strip{padding:0}
+      .fs-inner{padding:20px 16px 24px}
 
       .info-strip{grid-template-columns:1fr 1fr}
 
@@ -388,14 +439,27 @@
   <a class="sb-btn" href="#tickets">Réserver — 20.000 AR</a>
 </div>
 
-<!-- MOBILE BOTTOM CTA (uniquement mobile, masqué quand #tickets est visible) -->
-<div class="mob-cta" id="mobCta">
-  <div class="mob-price">
-    <div class="mp-val">20.000 AR</div>
-    <div class="mp-lbl">Tarif unique</div>
+<!-- MOBILE BOTTOM NAV (uniquement mobile) -->
+<nav class="mob-nav" aria-label="Navigation mobile">
+  <div class="mob-nav-inner">
+    <a class="mob-nav-item active" href="index.html">
+      <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      <span class="mob-nav-label">Billets</span>
+    </a>
+    <a class="mob-nav-item" href="artistes.html">
+      <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span class="mob-nav-label">Artistes</span>
+    </a>
+    <a class="mob-nav-item" href="evenements.html">
+      <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="mob-nav-label">Évènements</span>
+    </a>
+    <a class="mob-nav-item" href="#tickets" style="color:var(--pink)">
+      <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      <span class="mob-nav-label" style="color:var(--pink)">Réserver</span>
+    </a>
   </div>
-  <a class="mob-btn" href="#tickets">Réserver mon billet →</a>
-</div>
+</nav>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="heroSection">
@@ -463,6 +527,67 @@
     <div class="mtrack">
       <span>RIM-KA<span class="mdot"></span></span><span>CKYCKY<span class="mdot"></span></span><span>MAJESTY<span class="mdot"></span></span><span>20 JUIN 2026<span class="mdot"></span></span><span>LIBERTALIA PARK<span class="mdot"></span></span><span>20.000 AR<span class="mdot"></span></span><span>NOSY BE<span class="mdot"></span></span><span>MK &amp; COMPANY<span class="mdot"></span></span>
       <span>RIM-KA<span class="mdot"></span></span><span>CKYCKY<span class="mdot"></span></span><span>MAJESTY<span class="mdot"></span></span><span>20 JUIN 2026<span class="mdot"></span></span><span>LIBERTALIA PARK<span class="mdot"></span></span><span>20.000 AR<span class="mdot"></span></span><span>NOSY BE<span class="mdot"></span></span><span>MK &amp; COMPANY<span class="mdot"></span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EVENTS FLYER STRIP ═══ -->
+<section class="flyer-strip">
+  <div class="fs-inner">
+    <div class="fs-label">
+      <span class="pulse-dot" style="background:var(--pink)"></span>
+      Nos prochains événements
+    </div>
+    <div class="fs-grid">
+
+      <!-- FLYER : La Nuit de Nosy Be 2 -->
+      <a class="fcard" href="#tickets">
+        <div class="fcard-bg fcard-nnb2">
+          <!-- Remplace par : background-image:url('assets/flyer-nnb2.jpg') pour afficher le vrai flyer -->
+          <div class="fcard-inner-nnb2">
+            <div class="fcard-art">LA NUIT DE<br/><span>NOSY BE</span><br/><em>2</em></div>
+          </div>
+        </div>
+        <div class="fcard-foot">
+          <div class="fcard-foot-left">
+            <div class="fcard-date">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Samedi 20 Juin 2026
+            </div>
+            <div class="fcard-name">La Nuit de Nosy Be 2</div>
+            <div class="fcard-artists">Rim-Ka · Ckycky · Majesty</div>
+          </div>
+          <div class="fcard-cta">
+            <div class="fcard-paf">20.000 AR</div>
+            <div class="fcard-btn">Réserver →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- FLYER : Sôma Beach -->
+      <a class="fcard" href="soma-beach.html">
+        <div class="fcard-bg fcard-soma">
+          <!-- Remplace par : background-image:url('assets/flyer-soma.jpg') pour afficher le vrai flyer -->
+          <div class="fcard-inner-soma">
+            <div class="fcard-art fcard-art-soma">SÔMA<br/><span>BEACH</span></div>
+          </div>
+        </div>
+        <div class="fcard-foot" style="border-top-color:rgba(0,206,209,.2)">
+          <div class="fcard-foot-left">
+            <div class="fcard-date">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Dimanche 03 Août 2026
+            </div>
+            <div class="fcard-name" style="background:linear-gradient(90deg,#FF69B4,#00CED1);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Sôma Beach</div>
+            <div class="fcard-artists">Dee Jay Zayon · Lowis · Mister Cousin</div>
+          </div>
+          <div class="fcard-cta">
+            <div class="fcard-paf" style="background:linear-gradient(90deg,#00CED1,#FF69B4);-webkit-background-clip:text;-webkit-text-fill-color:transparent">15.000 AR</div>
+            <div class="fcard-btn" style="background:rgba(0,206,209,.1);border-color:rgba(0,206,209,.3);color:#00CED1">Voir →</div>
+          </div>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
@@ -697,21 +822,7 @@ const hero=document.getElementById('heroSection');
 const sbar=document.getElementById('stickyBar');
 new IntersectionObserver(([e])=>sbar.classList.toggle('show',!e.isIntersecting),{threshold:0}).observe(hero);
 
-/* ── Mobile bottom CTA (masqué quand #tickets est visible) ── */
-const mobCta=document.getElementById('mobCta');
-const ticketsSection=document.getElementById('tickets');
-if(window.matchMedia('(max-width:768px)').matches && mobCta && ticketsSection){
-  const mobObs=new IntersectionObserver(([e])=>{
-    // Masquer la mob-bar quand le panneau billets est en vue
-    mobCta.classList.toggle('show',!e.isIntersecting);
-  },{threshold:0.2});
-  mobObs.observe(ticketsSection);
-  // Afficher d'abord après un léger délai (hero en vue = masqué)
-  const heroObs=new IntersectionObserver(([e])=>{
-    if(!e.isIntersecting) mobCta.classList.add('show');
-  },{threshold:0});
-  heroObs.observe(hero);
-}
+/* Sticky bar : uniquement sur desktop (mobile = bottom-nav) */
 
 /* ── Qty ── */
 let qty=1;const PR=20000;
