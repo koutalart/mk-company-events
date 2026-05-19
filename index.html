@@ -240,38 +240,75 @@
     .mob-btn:active{background:#c0104d}
 
     /* ═══ MODAL ═══ */
-    .modal-bg{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.85);display:none;align-items:flex-end;justify-content:center;padding:0}
+    .modal-bg{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.88);display:none;align-items:flex-end;justify-content:center;padding:0}
     .modal-bg.open{display:flex}
     .mbox{
       background:var(--dark2);border:1px solid var(--border);border-radius:20px 20px 0 0;
-      padding:24px 20px 32px;width:100%;max-width:500px;position:relative;
-      animation:mslide .3s ease;max-height:92svh;overflow-y:auto;
+      padding:22px 20px;width:100%;max-width:500px;position:relative;
+      animation:mslide .3s ease;max-height:94svh;overflow-y:auto;
+      padding-bottom:max(22px,var(--safe-b));
     }
-    @keyframes mslide{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
-    .mclose{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--grey);cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
-    .mbox h2{font-family:'Bebas Neue',sans-serif;font-size:26px;margin-bottom:2px}
-    .mbox .msub{font-size:12px;color:var(--grey);margin-bottom:18px}
-    .fg{margin-bottom:12px}
-    .fg label{display:block;font-size:11px;font-weight:700;letter-spacing:.5px;color:var(--grey);text-transform:uppercase;margin-bottom:5px}
-    .fg input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:13px 14px;color:var(--white);font-family:'Source Sans 3',sans-serif;font-size:16px;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none}
+    @keyframes mslide{from{transform:translateY(48px);opacity:0}to{transform:translateY(0);opacity:1}}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .mclose{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.05);color:var(--grey);cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;flex-shrink:0}
+    .mbox h2{font-family:'Bebas Neue',sans-serif;font-size:24px;margin-bottom:1px}
+    .mbox .msub{font-size:12px;color:var(--grey);margin-bottom:16px}
+    .fg{margin-bottom:11px}
+    .fg label{display:block;font-size:10px;font-weight:700;letter-spacing:.8px;color:var(--grey);text-transform:uppercase;margin-bottom:5px}
+    .fg input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:13px 14px;color:var(--white);font-family:'Source Sans 3',sans-serif;font-size:16px;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none}
     .fg input:focus{border-color:var(--pink)}
-    .fgrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .pay-info-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:9px;padding:12px 14px;font-size:12px;color:var(--grey);margin-bottom:14px;line-height:1.65}
-    .pay-info-box strong{color:var(--white)}
-    #card-fields{display:none}
-    .btn-confirm{width:100%;background:var(--pink);color:#fff;border:none;padding:15px;border-radius:10px;font-weight:800;font-size:16px;cursor:pointer;transition:background .15s;font-family:'Source Sans 3',sans-serif;touch-action:manipulation;min-height:52px}
-    .btn-confirm:active{background:#c0104d}
 
-    /* Success */
-    .sview{text-align:center;padding:8px 0}
-    .sicon{width:60px;height:60px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;animation:scl .4s cubic-bezier(.175,.885,.32,1.275)}
-    @keyframes scl{from{transform:scale(0)}to{transform:scale(1)}}
-    .sview h2{font-family:'Bebas Neue',sans-serif;font-size:30px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:7px}
-    .sview p{color:var(--grey);font-size:13px;line-height:1.65;margin-bottom:14px}
-    .ticket-recap{background:rgba(255,255,255,.03);border:1px dashed var(--border);border-radius:12px;padding:14px;font-size:12px;color:var(--grey);text-align:left;margin-bottom:16px}
-    .ticket-recap div{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)}
-    .ticket-recap div:last-child{border-bottom:none}
-    .ticket-recap strong{color:var(--white)}
+    /* ── Bloc instructions paiement Mobile Money ── */
+    .pay-instr{display:none;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,214,0,.2);border-radius:14px;overflow:hidden;margin-bottom:14px}
+    .pay-instr.vis{display:block}
+    .pi-head{background:rgba(255,214,0,.08);padding:10px 16px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--yellow);display:flex;align-items:center;gap:7px}
+    .pi-body{padding:16px}
+    .pi-row{margin-bottom:14px}
+    .pi-row:last-child{margin-bottom:0}
+    .pi-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey);margin-bottom:4px}
+    .pi-val{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:1px;line-height:1;background:linear-gradient(90deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .pi-val-num{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:2px;line-height:1;color:var(--white)}
+    .pi-network{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:50px;margin-top:4px}
+    .pi-net-mv{background:rgba(224,0,32,.12);border:1px solid rgba(224,0,32,.25);color:#ff4a5a}
+    .pi-net-om{background:rgba(255,102,0,.12);border:1px solid rgba(255,102,0,.25);color:#FF8C42}
+    .pi-divider{height:1px;background:var(--border);margin:12px 0}
+    .pi-note{background:rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--grey);line-height:1.6}
+    .pi-note strong{color:var(--white)}
+
+    /* Card fields */
+    #card-fields{display:none}
+    .fgrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+    .btn-confirm{width:100%;background:var(--pink);color:#fff;border:none;padding:15px;border-radius:10px;font-weight:800;font-size:16px;cursor:pointer;transition:background .15s;font-family:'Source Sans 3',sans-serif;touch-action:manipulation;min-height:52px;display:flex;align-items:center;justify-content:center;gap:8px}
+    .btn-confirm:active{background:#c0104d}
+    .btn-confirm:disabled{opacity:.5;cursor:not-allowed}
+    .btn-sec{width:100%;background:rgba(255,255,255,.05);color:var(--white);border:1px solid var(--border);padding:13px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Source Sans 3',sans-serif;touch-action:manipulation;min-height:48px;text-align:center;text-decoration:none;display:block;margin-top:8px}
+
+    /* ── Vue EN ATTENTE DE PAIEMENT ── */
+    .pview{text-align:center;padding:4px 0}
+    .pview-icon{font-size:48px;margin-bottom:10px;animation:bob .8s ease-in-out infinite alternate}
+    @keyframes bob{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+    .pview h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.5px;margin-bottom:2px}
+    .pview .pv-sub{font-size:13px;color:var(--grey);margin-bottom:18px}
+    /* Bloc "À toi de jouer" */
+    .pv-action{background:linear-gradient(135deg,rgba(255,214,0,.07),rgba(255,26,117,.07));border:1.5px solid rgba(255,214,0,.25);border-radius:16px;padding:20px 18px;margin-bottom:16px;text-align:center}
+    .pv-action-title{font-family:'Bebas Neue',sans-serif;font-size:22px;background:linear-gradient(90deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:14px;letter-spacing:.5px}
+    .pv-transfer-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);margin-bottom:4px}
+    .pv-transfer-amount{font-family:'Bebas Neue',sans-serif;font-size:52px;background:linear-gradient(90deg,var(--yellow),#ff9500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;letter-spacing:1px}
+    .pv-on{font-size:12px;color:var(--grey);margin:8px 0 4px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+    .pv-transfer-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--white);letter-spacing:3px;line-height:1}
+    .pv-network-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:5px 14px;border-radius:50px;margin-top:8px}
+    .pv-action-note{font-size:12px;color:var(--grey);line-height:1.7;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);text-align:left}
+    .pv-action-note strong{color:var(--white)}
+    /* Ref */
+    .pv-ref{background:rgba(255,255,255,.03);border:1px dashed var(--border);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--grey);margin-bottom:14px;text-align:left;display:flex;align-items:center;justify-content:space-between}
+    .pv-ref strong{color:var(--white);font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px}
+    /* Compte */
+    .pv-account{background:rgba(160,32,240,.07);border:1px solid rgba(160,32,240,.2);border-radius:12px;padding:14px;margin-bottom:14px;text-align:left}
+    .pv-account-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--purple);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+    .pv-account p{font-size:13px;color:var(--grey);line-height:1.6}
+    .pv-account strong{color:var(--white)}
+    .pv-tickets-link{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:12px;font-weight:700;color:var(--purple);text-decoration:none}
 
     /* ═══ FOOTER ═══ */
     footer{border-top:1px solid var(--border);padding:28px 20px;max-width:var(--max);margin:0 auto}
@@ -764,12 +801,38 @@
 <div class="modal-bg" id="modal">
   <div class="mbox">
     <button class="mclose" id="mclose" aria-label="Fermer"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+
+    <!-- ── STEP 1 : Infos + instructions paiement ── -->
     <div id="fview">
-      <h2>Tes informations</h2>
+      <h2>Finalise ta réservation</h2>
       <p class="msub" id="msub">1 billet · 20.000 AR · Mvola</p>
-      <div class="fg"><label for="nom">Prénom &amp; Nom</label><input type="text" id="nom" placeholder="Mireille Rakoto" autocomplete="name" inputmode="text"/></div>
-      <div class="fg"><label for="tel">Téléphone</label><input type="tel" id="tel" placeholder="+261 XX XXX XX XX" autocomplete="tel" inputmode="tel"/></div>
-      <div class="fg"><label for="em">Email (optionnel)</label><input type="email" id="em" placeholder="ton@email.mg" autocomplete="email" inputmode="email"/></div>
+
+      <div class="fg"><label for="nom">Prénom &amp; Nom</label><input type="text" id="nom" placeholder="Ex : Mireille Rakoto" autocomplete="name" inputmode="text"/></div>
+      <div class="fg"><label for="tel">Ton numéro de téléphone</label><input type="tel" id="tel" placeholder="+261 XX XXX XX XX" autocomplete="tel" inputmode="tel"/></div>
+
+      <!-- Bloc instructions Mobile Money (caché pour CB) -->
+      <div class="pay-instr vis" id="payInstr">
+        <div class="pi-head">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Instructions de paiement
+        </div>
+        <div class="pi-body">
+          <div class="pi-row">
+            <div class="pi-lbl">Montant à transférer</div>
+            <div class="pi-val" id="piAmount">20.000 AR</div>
+          </div>
+          <div class="pi-divider"></div>
+          <div class="pi-row">
+            <div class="pi-lbl">Numéro destinataire</div>
+            <div class="pi-val-num" id="piNumber">034 14 700 47</div>
+            <div class="pi-network pi-net-mv" id="piNetwork">Mvola · Telma</div>
+          </div>
+          <div class="pi-divider"></div>
+          <div class="pi-note">📝 Indique ton <strong>nom complet</strong> en référence du transfert (ex : <strong id="piRef">NNB2-Mireille</strong>)</div>
+        </div>
+      </div>
+
+      <!-- Champs CB -->
       <div id="card-fields">
         <div class="fg"><label for="cn">Numéro de carte</label><input type="text" id="cn" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric"/></div>
         <div class="fgrow">
@@ -777,16 +840,54 @@
           <div class="fg"><label for="cv">CVV</label><input type="text" id="cv" placeholder="123" maxlength="3" inputmode="numeric"/></div>
         </div>
       </div>
-      <div class="pay-info-box" id="pinfo"><strong>Mvola (Telma) :</strong> envoie le montant au <strong>034 14 700 47</strong> · Indique ton nom en référence. Confirmation SMS garantie.</div>
-      <button class="btn-confirm" id="bconfirm">Confirmer et payer</button>
+
+      <button class="btn-confirm" id="bconfirm">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        Confirmer ma réservation
+      </button>
     </div>
-    <div id="sview" class="sview" style="display:none">
-      <div class="sicon"><svg width="26" height="26" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <h2>Billet réservé !</h2>
-      <p>Paiement en cours de validation. Ton QR code arrive sous peu. On se retrouve le 20 juin à Libertalia Park !</p>
-      <div class="ticket-recap" id="trecap"></div>
-      <button class="btn-confirm" onclick="closeM()">Fermer</button>
+
+    <!-- ── STEP 2 : En attente de paiement ── -->
+    <div id="pview" class="pview" style="display:none">
+      <div class="pview-icon">⏳</div>
+      <h2>Billet en attente</h2>
+      <p class="pv-sub">de paiement · <span id="pvRef2"></span></p>
+
+      <!-- Bloc "À toi de jouer" -->
+      <div class="pv-action">
+        <div class="pv-action-title">🎉 À toi de jouer maintenant !</div>
+        <div class="pv-transfer-label">Réalise le transfert de</div>
+        <div class="pv-transfer-amount" id="pvAmount">20.000 AR</div>
+        <div class="pv-on">sur le numéro</div>
+        <div class="pv-transfer-num" id="pvNumber">034 14 700 47</div>
+        <div class="pv-network-badge" id="pvNetwork" style="background:rgba(224,0,32,.12);border:1px solid rgba(224,0,32,.25);color:#ff4a5a">Mvola · Telma</div>
+        <div class="pv-action-note">
+          Dès que ton transfert est confirmé par notre équipe, tu reçois ton <strong>billet par SMS</strong> sur le <strong id="pvTel2"></strong>. Conserve ta référence en cas de question. 📱
+        </div>
+      </div>
+
+      <!-- Référence commande -->
+      <div class="pv-ref">
+        <span>Référence commande</span>
+        <strong id="pvRef"></strong>
+      </div>
+
+      <!-- Compte créé -->
+      <div class="pv-account">
+        <div class="pv-account-title">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Compte créé automatiquement
+        </div>
+        <p>Un espace billet a été créé pour le <strong id="pvTel"></strong>.<br/>Connecte-toi avec ton numéro — tu recevras un code SMS à usage unique.</p>
+        <a class="pv-tickets-link" href="mes-billets.html">
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Voir mes billets →
+        </a>
+      </div>
+
+      <button class="btn-confirm" onclick="closeM()">C'est noté, je fais le transfert</button>
     </div>
+
   </div>
 </div>
 
@@ -831,29 +932,38 @@ document.getElementById('qm').addEventListener('click',()=>{if(qty>1){qty--;upQ(
 document.getElementById('qp').addEventListener('click',()=>{if(qty<10){qty++;upQ();}});
 function upQ(){document.getElementById('qn').textContent=qty;document.getElementById('qtotal').textContent=fmt(qty*PR);}
 
-/* ── Payment ── */
+/* ── Payment state ── */
 let pm='telma';
-const pinfo={
-  telma:'<strong>Mvola (Telma) :</strong> envoie le montant au <strong style="color:#fff">034 14 700 47</strong> · Indique ton nom en référence. Confirmation SMS garantie.',
-  orange:'<strong>Orange Money :</strong> envoie le montant au <strong style="color:#fff">032 90 322 27</strong> · Indique ton nom en référence. Confirmation SMS garantie.',
-  card:'<strong>Carte Bleue (Stripe) :</strong> paiement 100% sécurisé. Tu seras redirigé vers notre page Stripe.'
-};
 const mlbl={telma:'Mvola (Telma)',orange:'Orange Money',card:'Carte Bleue'};
-document.querySelectorAll('.popt').forEach(p=>{
-  p.addEventListener('click',()=>{
-    document.querySelectorAll('.popt').forEach(x=>x.classList.remove('sel'));
-    p.classList.add('sel');pm=p.querySelector('input').value;
-    document.getElementById('card-fields').style.display=pm==='card'?'block':'none';
-    document.getElementById('pinfo').innerHTML=pinfo[pm];
-  });
-});
 
 /* ── Modal ── */
 const STRIPE_LINK='https://buy.stripe.com/REMPLACE_PAR_TON_LIEN';
+const NETWORK_INFO={
+  telma:{num:'034 14 700 47',label:'Mvola · Telma',cls:'pi-net-mv',pvStyle:'background:rgba(224,0,32,.12);border:1px solid rgba(224,0,32,.25);color:#ff4a5a'},
+  orange:{num:'032 90 322 27',label:'Orange Money',cls:'pi-net-om',pvStyle:'background:rgba(255,102,0,.12);border:1px solid rgba(255,102,0,.25);color:#FF8C42'}
+};
+
+function updatePayInstr(){
+  const instr=document.getElementById('payInstr');
+  const isCard=(pm==='card');
+  instr.classList.toggle('vis',!isCard);
+  document.getElementById('card-fields').style.display=isCard?'block':'none';
+  if(!isCard){
+    const inf=NETWORK_INFO[pm];
+    document.getElementById('piAmount').textContent=fmt(qty*PR);
+    document.getElementById('piNumber').textContent=inf.num;
+    const net=document.getElementById('piNetwork');
+    net.textContent=inf.label;
+    net.className='pi-network '+inf.cls;
+  }
+}
+
 function openM(){
   document.getElementById('msub').textContent=`${qty} billet${qty>1?'s':''} · ${fmt(qty*PR)} · ${mlbl[pm]}`;
+  document.getElementById('piAmount').textContent=fmt(qty*PR);
   document.getElementById('fview').style.display='block';
-  document.getElementById('sview').style.display='none';
+  document.getElementById('pview').style.display='none';
+  updatePayInstr();
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow='hidden';
   setTimeout(()=>document.getElementById('nom').focus(),120);
@@ -863,26 +973,65 @@ document.getElementById('bbuy').addEventListener('click',openM);
 document.getElementById('mclose').addEventListener('click',closeM);
 document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeM();});
 
+/* Mise à jour des instructions quand on change le mode de paiement */
+document.querySelectorAll('.popt').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('.popt').forEach(x=>x.classList.remove('sel'));
+    p.classList.add('sel');pm=p.querySelector('input').value;
+    updatePayInstr();
+  });
+});
+
+/* Mettre à jour la référence dans le bloc note */
+function updateRef(){
+  const n=document.getElementById('nom').value.trim();
+  document.getElementById('piRef').textContent=n?`NNB2-${n.split(' ')[0]}`:'NNB2-TonNom';
+}
+document.getElementById('nom').addEventListener('input',updateRef);
+
+/* Confirm */
 document.getElementById('bconfirm').addEventListener('click',function(){
-  const n=document.getElementById('nom').value.trim(),t=document.getElementById('tel').value.trim();
-  if(!n||!t){alert('Merci de remplir ton nom et ton numéro.');return;}
+  const n=document.getElementById('nom').value.trim();
+  const t=document.getElementById('tel').value.trim();
+  if(!n){document.getElementById('nom').focus();alert('Merci d\'indiquer ton prénom et nom.');return;}
+  if(!t){document.getElementById('tel').focus();alert('Merci d\'indiquer ton numéro de téléphone.');return;}
+
+  /* Carte → Stripe */
   if(pm==='card'){window.open(STRIPE_LINK+'?quantity='+qty,'_blank');return;}
-  this.disabled=true;this.textContent='Traitement…';
+
+  this.disabled=true;
+  this.innerHTML='<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="animation:spin .8s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>Traitement…';
+
   setTimeout(()=>{
-    document.getElementById('fview').style.display='none';
     const ref='NNB2-'+Math.random().toString(36).substr(2,8).toUpperCase();
-    const num=pm==='telma'?'034 14 700 47':'032 90 322 27';
-    document.getElementById('trecap').innerHTML=`
-      <div><span>Événement</span><strong>La Nuit de Nosy Be 2</strong></div>
-      <div><span>Nom</span><strong>${n}</strong></div>
-      <div><span>Billets</span><strong>${qty}</strong></div>
-      <div><span>Total</span><strong>${fmt(qty*PR)}</strong></div>
-      <div><span>Paiement</span><strong>${mlbl[pm]}</strong></div>
-      <div><span>Envoyer au</span><strong>${num}</strong></div>
-      <div><span>Référence</span><strong>${ref}</strong></div>`;
-    document.getElementById('sview').style.display='block';
-    this.disabled=false;this.textContent='Confirmer et payer';
-  },1500);
+    const inf=NETWORK_INFO[pm];
+
+    /* Sauvegarder la commande en localStorage */
+    const order={ref,nom:n,tel:t,qty,total:qty*PR,pm:mlbl[pm],num:inf.num,date:new Date().toISOString(),status:'pending'};
+    try{
+      const orders=JSON.parse(localStorage.getItem('nnb2_orders')||'[]');
+      orders.push(order);
+      localStorage.setItem('nnb2_orders',JSON.stringify(orders));
+      /* Compte client — indexé par téléphone */
+      const acc=JSON.parse(localStorage.getItem('nnb2_account')||'{}');
+      if(!acc[t]) acc[t]={tel:t,nom:n,created:new Date().toISOString()};
+      localStorage.setItem('nnb2_account',JSON.stringify(acc));
+    }catch(e){}
+
+    /* Afficher la vue "en attente" */
+    document.getElementById('fview').style.display='none';
+    document.getElementById('pvAmount').textContent=fmt(qty*PR);
+    document.getElementById('pvNumber').textContent=inf.num;
+    const pvNet=document.getElementById('pvNetwork');
+    pvNet.textContent=inf.label; pvNet.style=inf.pvStyle;
+    document.getElementById('pvRef').textContent=ref;
+    document.getElementById('pvRef2').textContent=ref;
+    document.getElementById('pvTel').textContent=t;
+    document.getElementById('pvTel2').textContent=t;
+    document.getElementById('pview').style.display='block';
+    this.disabled=false;
+    this.innerHTML='<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Confirmer ma réservation';
+  },1200);
 });
 
 /* Card formatting */
