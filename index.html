@@ -2,304 +2,364 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
   <title>La Nuit de Nosy Be 2 — Billetterie officielle · 20 Juin 2026</title>
   <meta name="description" content="Réserve ton billet pour La Nuit de Nosy Be 2 — 20 Juin 2026, Libertalia Park. Rim-Ka, Ckycky, Majesty. 20.000 AR."/>
+  <meta name="theme-color" content="#09090F"/>
+  <!-- Fonts: preconnect + display=swap pour ne pas bloquer le rendu -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
       --pink:#FF1A75;--yellow:#FFD600;--cyan:#00F5FF;--purple:#A020F0;
       --dark:#09090F;--dark2:#111118;--dark3:#1A1A26;--card:#1E1E2C;
       --white:#F0EEF8;--grey:#888;--border:rgba(255,255,255,.08);
-      --max:1300px;
+      --max:1300px;--safe-b:env(safe-area-inset-bottom,0px);
     }
-    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-    body{font-family:'Source Sans 3',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;min-height:100vh}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+    body{font-family:'Source Sans 3',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;min-height:100vh;-webkit-font-smoothing:antialiased}
 
     /* ═══ NAV ═══ */
     nav{
       position:fixed;top:0;left:0;right:0;z-index:200;
-      height:60px;display:flex;align-items:center;justify-content:space-between;
-      padding:0 32px;background:rgba(9,9,15,.95);backdrop-filter:blur(20px);
+      height:56px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 24px;background:rgba(9,9,15,.96);
       border-bottom:1px solid var(--border);
     }
-    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
-    .nav-center{display:flex;gap:2px;list-style:none}
-    .nav-center a{color:var(--grey);text-decoration:none;font-size:13px;font-weight:600;padding:7px 14px;border-radius:7px;transition:color .15s,background .15s;letter-spacing:.2px}
-    .nav-center a:hover{color:var(--white);background:rgba(255,255,255,.05)}
-    .nav-center a.active{color:var(--white)}
-    .nav-right{display:flex;align-items:center;gap:12px}
-    .nav-cta{background:var(--pink);color:#fff;border:none;padding:9px 20px;border-radius:6px;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.3px;transition:background .15s;text-decoration:none;white-space:nowrap}
-    .nav-cta:hover{background:#e0155f}
-    /* Sticky buy bar — appears after hero */
-    .sticky-bar{position:fixed;top:60px;left:0;right:0;z-index:190;background:rgba(20,20,30,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:10px 32px;display:flex;align-items:center;justify-content:space-between;transform:translateY(-100%);transition:transform .3s;pointer-events:none}
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:3px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+    .nav-links{display:flex;gap:2px;list-style:none}
+    .nav-links a{color:var(--grey);text-decoration:none;font-size:13px;font-weight:600;padding:7px 12px;border-radius:7px;transition:color .15s,background .15s}
+    .nav-links a:hover,.nav-links a.active{color:var(--white);background:rgba(255,255,255,.05)}
+
+    /* STICKY BAR — apparaît quand le hero quitte le viewport */
+    .sticky-bar{
+      position:fixed;top:56px;left:0;right:0;z-index:190;
+      background:rgba(15,15,22,.98);
+      border-bottom:1px solid var(--border);
+      padding:10px 24px;display:flex;align-items:center;justify-content:space-between;
+      transform:translateY(-110%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+      pointer-events:none;
+    }
     .sticky-bar.show{transform:translateY(0);pointer-events:all}
-    .sb-info{display:flex;align-items:center;gap:20px}
-    .sb-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px}
-    .sb-meta{font-size:12px;color:var(--grey);display:flex;gap:14px}
-    .sb-btn{background:var(--pink);color:#fff;border:none;padding:9px 22px;border-radius:6px;font-weight:700;font-size:13px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s}
-    .sb-btn:hover{background:#e0155f}
+    .sb-info{display:flex;align-items:center;gap:16px;min-width:0}
+    .sb-title{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .sb-meta{font-size:12px;color:var(--grey);display:flex;gap:12px;white-space:nowrap}
+    .sb-btn{background:var(--pink);color:#fff;padding:9px 20px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap;transition:background .15s;flex-shrink:0}
+    .sb-btn:active{background:#c0104d}
 
     /* ═══ HERO ═══ */
     .hero{
-      position:relative;min-height:100vh;display:flex;flex-direction:column;
-      justify-content:flex-end;padding:0 0 0;overflow:hidden;
+      position:relative;min-height:100svh;display:flex;flex-direction:column;
+      justify-content:flex-end;overflow:hidden;padding-top:56px;
     }
     .hero-bg{
       position:absolute;inset:0;z-index:0;
       background:
-        radial-gradient(ellipse 100% 60% at 50% -5%,rgba(160,32,240,.35),transparent 60%),
-        radial-gradient(ellipse 60% 50% at 0% 100%,rgba(255,26,117,.2),transparent 55%),
-        radial-gradient(ellipse 50% 40% at 100% 90%,rgba(0,245,255,.1),transparent 50%),
+        radial-gradient(ellipse 100% 60% at 50% -5%,rgba(160,32,240,.32),transparent 60%),
+        radial-gradient(ellipse 60% 50% at 0% 100%,rgba(255,26,117,.18),transparent 55%),
+        radial-gradient(ellipse 50% 40% at 100% 90%,rgba(0,245,255,.08),transparent 50%),
         var(--dark);
     }
+    /* Particles uniquement sur desktop — voir JS */
     .particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
     .particle{position:absolute;border-radius:50%;animation:floatUp linear infinite}
-    @keyframes floatUp{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.3}90%{opacity:.2}100%{transform:translateY(-60px) scale(1.2);opacity:0}}
-    /* Artist silhouette visual */
-    .hero-artists-bg{
-      position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-      width:100%;max-width:900px;height:70%;
-      background:radial-gradient(ellipse 80% 100% at 50% 100%,rgba(255,26,117,.08),transparent 60%);
-      display:flex;align-items:flex-end;justify-content:center;z-index:2;pointer-events:none;
-    }
+    @keyframes floatUp{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.3}90%{opacity:.15}100%{transform:translateY(-60px) scale(1.2);opacity:0}}
+
     .hero-artists-names{
       position:absolute;bottom:0;left:0;right:0;
-      display:flex;justify-content:center;gap:0;z-index:3;pointer-events:none;
-      padding-bottom:200px;
+      display:flex;justify-content:center;z-index:3;pointer-events:none;
+      padding-bottom:180px;
     }
     .artist-silhouette{
-      font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,12vw,140px);
+      font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,10vw,130px);
       letter-spacing:-2px;line-height:.85;opacity:.04;
-      -webkit-text-fill-color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.5);
+      -webkit-text-fill-color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.4);
       user-select:none;
     }
+
     .hero-content{
       position:relative;z-index:10;
       max-width:var(--max);margin:0 auto;width:100%;
-      padding:100px 32px 0;
+      padding:32px 20px 0;
       display:flex;flex-direction:column;align-items:center;text-align:center;
     }
-    .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.3);border-radius:50px;padding:6px 16px;font-size:11px;font-weight:700;color:var(--yellow);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}
-    .pulse-dot{width:7px;height:7px;background:var(--yellow);border-radius:50%;animation:pulse 1.6s ease infinite;flex-shrink:0}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.3);border-radius:50px;padding:5px 14px;font-size:10px;font-weight:700;color:var(--yellow);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+    .pulse-dot{width:6px;height:6px;background:var(--yellow);border-radius:50%;animation:pulse 1.6s ease infinite;flex-shrink:0}
     @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+
     .hero-title{font-family:'Bebas Neue',sans-serif;line-height:.88;letter-spacing:1px;margin-bottom:0}
-    .ht-1{font-size:clamp(44px,8vw,90px);color:rgba(255,255,255,.9);display:block}
-    .ht-2{font-size:clamp(64px,14vw,148px);display:block;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .ht-num{font-size:clamp(100px,20vw,220px);display:block;background:linear-gradient(135deg,var(--cyan) 20%,var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:.8;margin-top:-16px}
+    .ht-1{font-size:clamp(36px,7vw,84px);color:rgba(255,255,255,.9);display:block}
+    .ht-2{font-size:clamp(52px,12vw,140px);display:block;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .ht-num{font-size:clamp(88px,18vw,200px);display:block;background:linear-gradient(135deg,var(--cyan) 20%,var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:.8;margin-top:-12px}
 
-    /* Event meta row */
-    .event-meta{display:flex;gap:0;justify-content:center;margin:28px 0 32px;position:relative;z-index:10}
-    .em-item{display:flex;align-items:center;gap:8px;padding:0 22px;font-size:14px;font-weight:600;color:var(--white);border-right:1px solid var(--border)}
-    .em-item:last-child{border-right:none}
+    /* Event meta */
+    .event-meta{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:20px 0 24px;position:relative;z-index:10}
+    .em-item{display:flex;align-items:center;gap:6px;padding:6px 14px;font-size:12px;font-weight:600;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:50px}
     .em-item svg{color:var(--pink);flex-shrink:0}
-    .em-item span{color:var(--grey);font-size:12px;display:block;font-weight:400}
 
-    /* Countdown row */
-    .countdown-row{display:flex;gap:8px;justify-content:center;margin-bottom:32px;position:relative;z-index:10}
-    .cb{display:flex;flex-direction:column;align-items:center;padding:14px 20px;min-width:72px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px}
-    .cb-num{font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;background:linear-gradient(180deg,#fff 30%,rgba(255,26,117,.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .cb-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-top:2px}
+    /* Countdown */
+    .countdown-row{display:flex;gap:6px;justify-content:center;margin-bottom:24px;position:relative;z-index:10}
+    .cb{display:flex;flex-direction:column;align-items:center;padding:10px 14px;min-width:62px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px}
+    .cb-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,6vw,40px);line-height:1;background:linear-gradient(180deg,#fff 30%,rgba(255,26,117,.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .cb-lbl{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-top:2px}
 
     /* Artist chips */
-    .hero-lineup{display:flex;gap:10px;justify-content:center;margin-bottom:36px;position:relative;z-index:10;flex-wrap:wrap}
-    .lchip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;padding:10px 18px;text-decoration:none;color:var(--white);transition:background .15s,border-color .15s}
-    .lchip:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18)}
-    .lchip-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-    .lchip-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.5px}
-    .lchip-role{font-size:10px;color:var(--grey);display:block;font-weight:600;letter-spacing:.5px}
+    .hero-lineup{display:flex;gap:8px;justify-content:center;margin-bottom:28px;position:relative;z-index:10;flex-wrap:wrap}
+    .lchip{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;padding:9px 16px;text-decoration:none;color:var(--white);transition:background .15s}
+    .lchip:active{background:rgba(255,255,255,.1)}
+    .lchip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+    .lchip-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px}
+    .lchip-role{font-size:10px;color:var(--grey);display:block;font-weight:600;letter-spacing:.3px}
 
     /* Hero CTAs */
-    .hero-actions{display:flex;gap:12px;justify-content:center;margin-bottom:0;position:relative;z-index:10;flex-wrap:wrap}
-    .btn-primary{background:var(--pink);color:#fff;border:none;padding:16px 36px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-weight:800;font-size:15px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:9px;box-shadow:0 8px 32px rgba(255,26,117,.35);transition:background .15s,transform .15s,box-shadow .15s;letter-spacing:.3px}
-    .btn-primary:hover{background:#e0155f;transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,26,117,.5)}
-    .btn-outline{background:transparent;color:var(--white);border:1.5px solid var(--border);padding:16px 28px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none;transition:border-color .15s,background .15s}
-    .btn-outline:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05)}
+    .hero-actions{display:flex;gap:10px;justify-content:center;margin-bottom:0;position:relative;z-index:10;flex-wrap:wrap}
+    .btn-primary{background:var(--pink);color:#fff;border:none;padding:15px 32px;border-radius:10px;font-family:'Source Sans 3',sans-serif;font-weight:800;font-size:15px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 6px 28px rgba(255,26,117,.35);transition:background .15s;letter-spacing:.2px;min-height:50px;touch-action:manipulation}
+    .btn-primary:active{background:#c0104d;box-shadow:none}
+    .btn-outline{background:transparent;color:var(--white);border:1.5px solid var(--border);padding:15px 24px;border-radius:10px;font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none;transition:border-color .15s;min-height:50px;display:inline-flex;align-items:center;touch-action:manipulation}
 
     /* ═══ MARQUEE ═══ */
-    .marquee{background:var(--pink);overflow:hidden;padding:11px 0;margin-top:48px;flex-shrink:0}
-    .mtrack{display:flex;width:max-content;animation:scroll 22s linear infinite}
-    .mtrack span{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2.5px;color:#fff;padding:0 24px;white-space:nowrap}
+    .marquee{background:var(--pink);overflow:hidden;padding:10px 0;margin-top:40px;flex-shrink:0}
+    .mtrack{display:flex;width:max-content;animation:scroll 20s linear infinite}
+    .mtrack span{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2.5px;color:#fff;padding:0 20px;white-space:nowrap}
     .mdot{display:inline-block;width:4px;height:4px;background:rgba(255,255,255,.5);border-radius:50%;margin:0 4px;vertical-align:middle}
     @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
     /* ═══ MAIN LAYOUT ═══ */
     .main-layout{
-      max-width:var(--max);margin:0 auto;padding:48px 32px 80px;
-      display:grid;grid-template-columns:1fr 400px;gap:40px;align-items:start;
+      max-width:var(--max);margin:0 auto;padding:40px 20px 80px;
+      display:grid;grid-template-columns:1fr 390px;gap:36px;align-items:start;
     }
-    .main-left{}
-    .main-right{position:sticky;top:80px}
+    .main-right{position:sticky;top:76px}
 
     /* ═══ SECTION HEADERS ═══ */
-    .sh{margin-bottom:24px}
-    .sh-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:6px}
-    .sh-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,44px);line-height:1;letter-spacing:.3px}
-    .sh-sub{font-size:14px;color:var(--grey);margin-top:6px;line-height:1.6}
+    .sh{margin-bottom:20px}
+    .sh-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:5px}
+    .sh-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,3.5vw,40px);line-height:1;letter-spacing:.3px}
+    .sh-sub{font-size:13px;color:var(--grey);margin-top:5px;line-height:1.6}
 
     /* ═══ EVENT INFO STRIP ═══ */
-    .info-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;margin-bottom:40px}
-    .is-item{background:var(--dark2);padding:20px 18px}
-    .is-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:5px}
-    .is-val{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.3px}
-    .is-sub{font-size:11px;color:var(--grey);margin-top:2px}
-
-    /* ═══ WHY CARDS ═══ */
-    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
-    .wcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 18px;transition:border-color .2s}
-    .wcard:hover{border-color:rgba(255,26,117,.25)}
-    .wicon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-    .wi-p{background:rgba(255,26,117,.1)} .wi-c{background:rgba(0,245,255,.07)} .wi-y{background:rgba(255,214,0,.07)} .wi-pu{background:rgba(160,32,240,.1)}
-    .wcard h3{font-size:14px;font-weight:700;margin-bottom:5px}
-    .wcard p{font-size:12px;color:var(--grey);line-height:1.6}
+    .info-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;margin-bottom:36px}
+    .is-item{background:var(--dark2);padding:18px 16px}
+    .is-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:4px}
+    .is-val{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.3px;line-height:1.1}
+    .is-sub{font-size:11px;color:var(--grey);margin-top:3px}
 
     /* ═══ ARTIST PREVIEWS ═══ */
-    .artist-previews{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:40px}
-    .ap{border-radius:14px;overflow:hidden;background:var(--card);border:1px solid var(--border);text-decoration:none;color:var(--white);transition:transform .2s,border-color .2s;display:block}
-    .ap:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.15)}
-    .ap-img{aspect-ratio:16/9;overflow:hidden}
-    .ap-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
-    .ap:hover .ap-img img{transform:scale(1.06)}
-    .ap-body{padding:12px 14px}
-    .ap-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.3px;margin-bottom:2px}
+    .artist-previews{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:36px;
+    }
+    .ap{border-radius:14px;overflow:hidden;background:var(--card);border:1px solid var(--border);text-decoration:none;color:var(--white);display:block}
+    .ap-img{aspect-ratio:16/9;overflow:hidden;background:var(--dark3)}
+    .ap-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .ap-body{padding:11px 13px}
+    .ap-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.3px;margin-bottom:2px}
     .ap-genre{font-size:11px;color:var(--grey);font-weight:600}
-    .ap-see{font-size:11px;color:var(--pink);font-weight:700;margin-top:6px;display:block}
+    .ap-see{font-size:11px;color:var(--pink);font-weight:700;margin-top:5px;display:block}
 
-    /* ═══ TICKET PANEL (sticky right) ═══ */
+    /* ═══ WHY CARDS ═══ */
+    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:36px}
+    .wcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 16px}
+    .wicon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+    .wi-p{background:rgba(255,26,117,.1)} .wi-c{background:rgba(0,245,255,.07)} .wi-y{background:rgba(255,214,0,.07)} .wi-pu{background:rgba(160,32,240,.1)}
+    .wcard h3{font-size:13px;font-weight:700;margin-bottom:4px}
+    .wcard p{font-size:12px;color:var(--grey);line-height:1.6}
+
+    /* ═══ TICKET PANEL ═══ */
     .ticket-panel{background:var(--dark2);border:1px solid var(--border);border-radius:18px;overflow:hidden}
-    .tp-header{padding:20px 22px 18px;border-bottom:1px solid var(--border)}
-    .tp-event-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.3px;margin-bottom:4px}
-    .tp-meta{display:flex;flex-direction:column;gap:4px}
-    .tp-meta-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--grey)}
+    .tp-header{padding:18px 20px 16px;border-bottom:1px solid var(--border)}
+    .tp-event-name{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:.3px;margin-bottom:4px}
+    .tp-meta-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--grey);margin-top:3px}
     .tp-meta-row svg{color:var(--pink);flex-shrink:0}
-    .tp-body{padding:20px 22px}
+    .tp-body{padding:18px 20px}
 
-    /* Price */
-    .price-box{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px}
-    .price-main{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;background:linear-gradient(135deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .price-box{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:16px}
+    .price-main{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;background:linear-gradient(135deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     .price-sub{font-size:11px;color:var(--grey);font-weight:600;line-height:1.5}
     .avail-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(0,200,80,.08);border:1px solid rgba(0,200,80,.2);border-radius:50px;padding:5px 12px;font-size:11px;font-weight:700;color:#00c850}
     .avail-dot{width:6px;height:6px;background:#00c850;border-radius:50%;animation:pulse 1.6s ease infinite}
 
-    /* Perks */
-    .perks{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)}
-    .perks li{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500}
-    .pcheck{width:18px;height:18px;flex-shrink:0;background:rgba(255,26,117,.1);border:1px solid rgba(255,26,117,.2);border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .perks{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+    .perks li{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500}
+    .pcheck{width:17px;height:17px;flex-shrink:0;background:rgba(255,26,117,.1);border:1px solid rgba(255,26,117,.2);border-radius:50%;display:flex;align-items:center;justify-content:center}
     .pcheck svg{color:var(--pink)}
 
-    /* Qty */
-    .qty-section{margin-bottom:16px}
-    .qty-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey);margin-bottom:8px}
-    .qty-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:12px 16px}
-    .qty-ctrl{display:flex;align-items:center;gap:12px}
-    .qbtn{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--white);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;line-height:1}
-    .qbtn:hover{background:var(--pink);border-color:var(--pink)}
+    .qty-section{margin-bottom:14px}
+    .qty-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey);margin-bottom:7px}
+    .qty-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:11px 14px}
+    .qty-ctrl{display:flex;align-items:center;gap:10px}
+    .qbtn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--white);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;line-height:1;touch-action:manipulation}
+    .qbtn:active{background:var(--pink);border-color:var(--pink)}
     .qnum{font-family:'Bebas Neue',sans-serif;font-size:24px;min-width:26px;text-align:center}
 
-    /* Total */
-    .total-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,214,0,.05);border:1px solid rgba(255,214,0,.1);border-radius:10px;padding:12px 16px;margin-bottom:16px}
+    .total-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,214,0,.05);border:1px solid rgba(255,214,0,.1);border-radius:10px;padding:11px 14px;margin-bottom:14px}
     .total-row span{font-size:12px;color:var(--grey);font-weight:600}
-    .total-row strong{font-family:'Bebas Neue',sans-serif;font-size:26px;background:linear-gradient(90deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .total-row strong{font-family:'Bebas Neue',sans-serif;font-size:24px;background:linear-gradient(90deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
-    /* Payment select */
-    .pay-section{margin-bottom:16px}
-    .pay-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey);margin-bottom:8px}
+    .pay-section{margin-bottom:14px}
+    .pay-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey);margin-bottom:7px}
     .pay-options{display:flex;flex-direction:column;gap:6px}
-    .popt{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .15s,background .15s}
-    .popt:hover{border-color:rgba(255,255,255,.2)}
+    .popt{display:flex;align-items:center;gap:11px;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .15s,background .15s;touch-action:manipulation}
     .popt.sel{border-color:var(--pink);background:rgba(255,26,117,.07)}
     .popt input{display:none}
-    .popt-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10px;letter-spacing:.5px;flex-shrink:0}
-    .pi-t{background:#E00020;color:#fff}
-    .pi-o{background:#FF6600;color:#fff}
-    .pi-c{background:#2563EB;color:#fff}
-    .popt-info{flex:1}
+    .popt-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:9px;letter-spacing:.5px;flex-shrink:0}
+    .pi-t{background:#E00020;color:#fff}.pi-o{background:#FF6600;color:#fff}.pi-c{background:#2563EB;color:#fff}
+    .popt-info{flex:1;min-width:0}
     .popt-name{font-size:13px;font-weight:700}
     .popt-num{font-size:11px;color:var(--grey)}
-    .popt-check{width:18px;height:18px;border:1.5px solid var(--border);border-radius:50%;flex-shrink:0;transition:background .15s,border-color .15s;display:flex;align-items:center;justify-content:center}
+    .popt-check{width:17px;height:17px;border:1.5px solid var(--border);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}
     .popt.sel .popt-check{background:var(--pink);border-color:var(--pink)}
 
-    /* Buy btn */
-    .btn-buy{width:100%;background:var(--pink);color:#fff;border:none;padding:16px;border-radius:10px;font-family:'Source Sans 3',sans-serif;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 6px 24px rgba(255,26,117,.3);transition:background .15s,transform .15s;display:flex;align-items:center;justify-content:center;gap:9px;letter-spacing:.2px;margin-bottom:14px}
-    .btn-buy:hover{background:#e0155f;transform:translateY(-1px)}
-    .btn-buy:disabled{opacity:.5;cursor:not-allowed;transform:none}
+    .btn-buy{width:100%;background:var(--pink);color:#fff;border:none;padding:16px;border-radius:10px;font-family:'Source Sans 3',sans-serif;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 5px 20px rgba(255,26,117,.3);transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.2px;margin-bottom:12px;touch-action:manipulation;min-height:52px}
+    .btn-buy:active{background:#c0104d;box-shadow:none}
+    .btn-buy:disabled{opacity:.5;cursor:not-allowed}
 
-    /* Trust */
-    .trust-row{display:flex;gap:0;justify-content:center;border-top:1px solid var(--border);padding-top:14px}
-    .trust-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--grey);font-weight:600;padding:0 10px;border-right:1px solid var(--border);flex:1;justify-content:center}
+    .trust-row{display:flex;gap:0;justify-content:center;border-top:1px solid var(--border);padding-top:12px}
+    .trust-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--grey);font-weight:600;padding:0 8px;border-right:1px solid var(--border);flex:1;justify-content:center}
     .trust-item:last-child{border-right:none}
     .trust-item svg{color:var(--pink)}
 
+    /* ═══ MOBILE BOTTOM BAR ═══ */
+    .mob-cta{
+      display:none; /* affiché via media query */
+      position:fixed;bottom:0;left:0;right:0;z-index:195;
+      background:rgba(12,12,20,.98);
+      border-top:1px solid var(--border);
+      padding:10px 16px;
+      padding-bottom:calc(10px + var(--safe-b));
+      align-items:center;gap:12px;
+      transform:translateY(110%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+      pointer-events:none;
+    }
+    .mob-cta.show{transform:translateY(0);pointer-events:all}
+    .mob-price{flex-shrink:0}
+    .mob-price .mp-val{font-family:'Bebas Neue',sans-serif;font-size:22px;background:linear-gradient(90deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+    .mob-price .mp-lbl{font-size:10px;color:var(--grey);font-weight:600}
+    .mob-btn{flex:1;background:var(--pink);color:#fff;border:none;padding:15px 20px;border-radius:12px;font-weight:800;font-size:15px;text-align:center;text-decoration:none;display:block;touch-action:manipulation;min-height:50px;line-height:1.2;display:flex;align-items:center;justify-content:center}
+    .mob-btn:active{background:#c0104d}
+
     /* ═══ MODAL ═══ */
-    .modal-bg{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal-bg{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.85);display:none;align-items:flex-end;justify-content:center;padding:0}
     .modal-bg.open{display:flex}
-    .mbox{background:var(--dark2);border:1px solid var(--border);border-radius:20px;padding:32px;max-width:440px;width:100%;position:relative;animation:mup .3s ease}
-    @keyframes mup{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
-    .mclose{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--grey);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
-    .mclose:hover{background:rgba(255,26,117,.12);color:var(--pink)}
-    .mbox h2{font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:3px}
-    .mbox .msub{font-size:12px;color:var(--grey);margin-bottom:22px}
-    .fg{margin-bottom:14px}
-    .fg label{display:block;font-size:11px;font-weight:700;letter-spacing:.5px;color:var(--grey);text-transform:uppercase;margin-bottom:6px}
-    .fg input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:12px 14px;color:var(--white);font-family:'Source Sans 3',sans-serif;font-size:14px;outline:none;transition:border-color .15s}
+    .mbox{
+      background:var(--dark2);border:1px solid var(--border);border-radius:20px 20px 0 0;
+      padding:24px 20px 32px;width:100%;max-width:500px;position:relative;
+      animation:mslide .3s ease;max-height:92svh;overflow-y:auto;
+    }
+    @keyframes mslide{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .mclose{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--grey);cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
+    .mbox h2{font-family:'Bebas Neue',sans-serif;font-size:26px;margin-bottom:2px}
+    .mbox .msub{font-size:12px;color:var(--grey);margin-bottom:18px}
+    .fg{margin-bottom:12px}
+    .fg label{display:block;font-size:11px;font-weight:700;letter-spacing:.5px;color:var(--grey);text-transform:uppercase;margin-bottom:5px}
+    .fg input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:13px 14px;color:var(--white);font-family:'Source Sans 3',sans-serif;font-size:16px;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none}
     .fg input:focus{border-color:var(--pink)}
     .fgrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .pay-info-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:9px;padding:12px 14px;font-size:12px;color:var(--grey);margin-bottom:16px;line-height:1.65}
+    .pay-info-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:9px;padding:12px 14px;font-size:12px;color:var(--grey);margin-bottom:14px;line-height:1.65}
     .pay-info-box strong{color:var(--white)}
     #card-fields{display:none}
-    .btn-confirm{width:100%;background:var(--pink);color:#fff;border:none;padding:14px;border-radius:9px;font-weight:800;font-size:15px;cursor:pointer;transition:background .15s;font-family:'Source Sans 3',sans-serif}
-    .btn-confirm:hover{background:#e0155f}
+    .btn-confirm{width:100%;background:var(--pink);color:#fff;border:none;padding:15px;border-radius:10px;font-weight:800;font-size:16px;cursor:pointer;transition:background .15s;font-family:'Source Sans 3',sans-serif;touch-action:manipulation;min-height:52px}
+    .btn-confirm:active{background:#c0104d}
 
     /* Success */
     .sview{text-align:center;padding:8px 0}
-    .sicon{width:64px;height:64px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;animation:scl .4s cubic-bezier(.175,.885,.32,1.275)}
+    .sicon{width:60px;height:60px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;animation:scl .4s cubic-bezier(.175,.885,.32,1.275)}
     @keyframes scl{from{transform:scale(0)}to{transform:scale(1)}}
-    .sview h2{font-family:'Bebas Neue',sans-serif;font-size:32px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
-    .sview p{color:var(--grey);font-size:13px;line-height:1.65;margin-bottom:16px}
-    .ticket-recap{background:rgba(255,255,255,.03);border:1px dashed var(--border);border-radius:12px;padding:16px;font-size:12px;color:var(--grey);text-align:left;margin-bottom:18px}
+    .sview h2{font-family:'Bebas Neue',sans-serif;font-size:30px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:7px}
+    .sview p{color:var(--grey);font-size:13px;line-height:1.65;margin-bottom:14px}
+    .ticket-recap{background:rgba(255,255,255,.03);border:1px dashed var(--border);border-radius:12px;padding:14px;font-size:12px;color:var(--grey);text-align:left;margin-bottom:16px}
     .ticket-recap div{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)}
     .ticket-recap div:last-child{border-bottom:none}
     .ticket-recap strong{color:var(--white)}
 
     /* ═══ FOOTER ═══ */
-    footer{border-top:1px solid var(--border);padding:32px;max-width:var(--max);margin:0 auto}
-    .footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:24px}
-    .fi-title{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;margin-bottom:12px;color:var(--grey)}
+    footer{border-top:1px solid var(--border);padding:28px 20px;max-width:var(--max);margin:0 auto}
+    .footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;margin-bottom:20px}
+    .fi-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;margin-bottom:10px;color:var(--grey)}
     .fi-links{display:flex;flex-direction:column;gap:7px}
     .fi-links a{font-size:13px;color:var(--grey);text-decoration:none;transition:color .15s}
     .fi-links a:hover{color:var(--white)}
-    .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--grey)}
-    .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--grey)}
+    .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
 
     /* ═══ RESPONSIVE ═══ */
     @media(max-width:1024px){
-      .main-layout{grid-template-columns:1fr;gap:32px}
+      .main-layout{grid-template-columns:1fr;gap:28px}
       .main-right{position:static}
       .footer-inner{grid-template-columns:1fr 1fr}
     }
+
+    /* ── MOBILE ── */
     @media(max-width:768px){
-      nav{padding:0 16px}
-      .nav-center{display:none}
-      .hero-content{padding:90px 16px 0}
-      .event-meta{flex-wrap:wrap;gap:4px}
-      .em-item{border:none;font-size:12px;padding:4px 12px;background:rgba(255,255,255,.04);border-radius:50px}
-      .info-strip{grid-template-columns:1fr 1fr}
-      .why-grid{grid-template-columns:1fr}
-      .artist-previews{grid-template-columns:1fr}
-      .main-layout{padding:32px 16px 60px}
-      .sticky-bar{padding:8px 16px}
+      nav{padding:0 16px;height:52px}
+      .nav-links{display:none} /* hamburger si besoin plus tard */
+      .sticky-bar{top:52px;padding:8px 14px}
       .sb-meta{display:none}
-      .footer-inner{grid-template-columns:1fr}
-      footer{padding:24px 16px}
+
+      .hero{padding-top:52px}
+      .hero-content{padding:20px 16px 0;text-align:center}
+      .hero-artists-names{padding-bottom:140px}
+      .artist-silhouette{font-size:clamp(40px,10vw,90px)}
+
+      .event-meta{gap:5px;margin:16px 0 18px}
+      .em-item{font-size:11px;padding:5px 11px}
+
+      .countdown-row{gap:5px;margin-bottom:18px}
+      .cb{padding:8px 10px;min-width:54px;border-radius:10px}
+
+      .hero-lineup{margin-bottom:20px}
+      .hero-actions{gap:8px}
+      .btn-primary,.btn-outline{font-size:14px;padding:13px 22px}
+
+      .marquee{margin-top:28px}
+
+      .main-layout{padding:24px 16px 100px} /* 100px = espace pour la mob-bar */
+
+      .info-strip{grid-template-columns:1fr 1fr}
+
+      /* Artist cards : scroll horizontal sur mobile */
+      .artist-previews{
+        display:flex !important;
+        overflow-x:auto;
+        scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+        gap:10px;
+        margin-left:-16px;margin-right:-16px;padding:0 16px 4px;
+        grid-template-columns:unset;
+      }
+      .artist-previews::-webkit-scrollbar{display:none}
+      .ap{flex:0 0 72vw;max-width:280px;scroll-snap-align:start}
+
+      .why-grid{grid-template-columns:1fr 1fr;gap:8px}
+      .wcard{padding:14px 12px}
+
+      /* Ticket panel : visible sans scroll sur mobile */
+      .ticket-panel{border-radius:16px}
+
+      /* Mobile bottom bar */
+      .mob-cta{display:flex}
+
+      .footer-inner{grid-template-columns:1fr 1fr}
+      footer{padding:24px 16px;padding-bottom:calc(24px + var(--safe-b))}
+      .footer-bottom{flex-direction:column;gap:6px;text-align:center}
     }
-    @media(max-width:480px){
-      .countdown-row .cb{padding:10px 14px;min-width:60px}
-      .cb-num{font-size:34px}
+
+    @media(max-width:400px){
+      .ht-1{font-size:32px}
+      .ht-2{font-size:48px}
+      .ht-num{font-size:82px}
+      .cb{min-width:48px;padding:7px 8px}
+      .cb-num{font-size:26px}
+      .why-grid{grid-template-columns:1fr}
     }
-    @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+    /* Pas d'animations si reduced-motion */
+    @media(prefers-reduced-motion:reduce){
+      *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+      .mtrack{animation:none}
+    }
   </style>
 </head>
 <body>
@@ -307,17 +367,15 @@
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">NUIT DE NOSY BE</a>
-  <ul class="nav-center">
+  <ul class="nav-links">
     <li><a href="index.html" class="active">Billetterie</a></li>
     <li><a href="artistes.html">Artistes</a></li>
     <li><a href="evenements.html">Événements</a></li>
   </ul>
-  <div class="nav-right">
-    <a class="nav-cta" href="#tickets">Acheter mon billet</a>
-  </div>
+  <!-- Pas de nav-cta : la sticky-bar remplace ce bouton après scroll -->
 </nav>
 
-<!-- STICKY BAR -->
+<!-- STICKY BAR (apparaît quand le hero quitte le viewport) -->
 <div class="sticky-bar" id="stickyBar">
   <div class="sb-info">
     <div class="sb-title">La Nuit de Nosy Be 2</div>
@@ -330,14 +388,22 @@
   <a class="sb-btn" href="#tickets">Réserver — 20.000 AR</a>
 </div>
 
+<!-- MOBILE BOTTOM CTA (uniquement mobile, masqué quand #tickets est visible) -->
+<div class="mob-cta" id="mobCta">
+  <div class="mob-price">
+    <div class="mp-val">20.000 AR</div>
+    <div class="mp-lbl">Tarif unique</div>
+  </div>
+  <a class="mob-btn" href="#tickets">Réserver mon billet →</a>
+</div>
+
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="heroSection">
   <div class="hero-bg"></div>
   <div class="particles" id="pts"></div>
-  <div class="hero-artists-bg"></div>
   <div class="hero-artists-names">
     <span class="artist-silhouette">RIM-KA</span>
-    <span class="artist-silhouette" style="margin:0 20px">CKYCKY</span>
+    <span class="artist-silhouette" style="margin:0 16px">CKYCKY</span>
     <span class="artist-silhouette">MAJESTY</span>
   </div>
   <div class="hero-content">
@@ -349,20 +415,20 @@
     </h1>
     <div class="event-meta">
       <div class="em-item">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <div><strong>Samedi 20 Juin 2026</strong><span>Dans 32 jours</span></div>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Samedi 20 Juin 2026
       </div>
       <div class="em-item">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        <div><strong>Libertalia Park</strong><span>By Rijade · Madagascar</span></div>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Libertalia Park · Nosy Be
       </div>
       <div class="em-item">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <div><strong>Dès 21h00</strong><span>Toute la nuit</span></div>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Dès 21h00
       </div>
       <div class="em-item">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        <div><strong>20.000 AR</strong><span>Tarif unique</span></div>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        20.000 AR
       </div>
     </div>
     <div class="countdown-row">
@@ -387,13 +453,12 @@
     </div>
     <div class="hero-actions">
       <a class="btn-primary" href="#tickets">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-        Réserver mon billet — 20.000 AR
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        Réserver — 20.000 AR
       </a>
       <a class="btn-outline" href="artistes.html">Voir les artistes</a>
     </div>
   </div>
-  <!-- Marquee integrated in hero bottom -->
   <div class="marquee">
     <div class="mtrack">
       <span>RIM-KA<span class="mdot"></span></span><span>CKYCKY<span class="mdot"></span></span><span>MAJESTY<span class="mdot"></span></span><span>20 JUIN 2026<span class="mdot"></span></span><span>LIBERTALIA PARK<span class="mdot"></span></span><span>20.000 AR<span class="mdot"></span></span><span>NOSY BE<span class="mdot"></span></span><span>MK &amp; COMPANY<span class="mdot"></span></span>
@@ -408,15 +473,13 @@
   <!-- LEFT COLUMN -->
   <div class="main-left">
 
-    <!-- Event info strip -->
     <div class="info-strip">
-      <div class="is-item"><div class="is-label">Date</div><div class="is-val">20 Juin 2026</div><div class="is-sub">Vendredi soir</div></div>
-      <div class="is-item"><div class="is-label">Lieu</div><div class="is-val">Libertalia Park</div><div class="is-sub">By Rijade · Madagascar</div></div>
-      <div class="is-item"><div class="is-label">Ouverture</div><div class="is-val">21h00</div><div class="is-sub">Show toute la nuit</div></div>
-      <div class="is-item"><div class="is-label">PAF</div><div class="is-val">20.000 AR</div><div class="is-sub">Tarif unique</div></div>
+      <div class="is-item"><div class="is-label">Date</div><div class="is-val">20 Juin</div><div class="is-sub">Samedi 2026</div></div>
+      <div class="is-item"><div class="is-label">Lieu</div><div class="is-val">Libertalia</div><div class="is-sub">Park · Nosy Be</div></div>
+      <div class="is-item"><div class="is-label">Ouverture</div><div class="is-val">21h00</div><div class="is-sub">Toute la nuit</div></div>
+      <div class="is-item"><div class="is-label">PAF</div><div class="is-val">20.000</div><div class="is-sub">AR · Tarif unique</div></div>
     </div>
 
-    <!-- Artist previews -->
     <div class="sh">
       <div class="sh-label">Line-up</div>
       <h2 class="sh-title">Les artistes de la soirée</h2>
@@ -424,7 +487,7 @@
     </div>
     <div class="artist-previews">
       <a class="ap" href="artistes.html#rimka">
-        <div class="ap-img"><img src="https://img.youtube.com/vi/stlvGoppr4A/maxresdefault.jpg" alt="Rim-Ka" loading="lazy" onerror="this.src='https://img.youtube.com/vi/stlvGoppr4A/hqdefault.jpg'"/></div>
+        <div class="ap-img"><img src="https://img.youtube.com/vi/stlvGoppr4A/hqdefault.jpg" alt="Rim-Ka" loading="lazy" decoding="async"/></div>
         <div class="ap-body">
           <div class="ap-name" style="background:linear-gradient(90deg,#fff,var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Rim-Ka</div>
           <div class="ap-genre">Afropop · Trap · Bongo Flavor</div>
@@ -432,7 +495,7 @@
         </div>
       </a>
       <a class="ap" href="artistes.html#ckycky">
-        <div class="ap-img"><img src="https://img.youtube.com/vi/z3LCYOvqNYA/maxresdefault.jpg" alt="Ckycky" loading="lazy" onerror="this.src='https://img.youtube.com/vi/z3LCYOvqNYA/hqdefault.jpg'"/></div>
+        <div class="ap-img"><img src="https://img.youtube.com/vi/z3LCYOvqNYA/hqdefault.jpg" alt="Ckycky" loading="lazy" decoding="async"/></div>
         <div class="ap-body">
           <div class="ap-name" style="background:linear-gradient(90deg,#fff,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Ckycky</div>
           <div class="ap-genre">Afro-Malagasy · R&B · Urban</div>
@@ -440,7 +503,7 @@
         </div>
       </a>
       <a class="ap" href="artistes.html#majesty">
-        <div class="ap-img"><img src="https://img.youtube.com/vi/K09qCjqYzv8/maxresdefault.jpg" alt="Majesty" loading="lazy" onerror="this.src='https://img.youtube.com/vi/K09qCjqYzv8/hqdefault.jpg'"/></div>
+        <div class="ap-img"><img src="https://img.youtube.com/vi/K09qCjqYzv8/hqdefault.jpg" alt="Majesty" loading="lazy" decoding="async"/></div>
         <div class="ap-body">
           <div class="ap-name" style="background:linear-gradient(90deg,#fff,var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Majesty</div>
           <div class="ap-genre">Dancehall · Afro Urban</div>
@@ -449,16 +512,15 @@
       </a>
     </div>
 
-    <!-- Why online -->
     <div class="sh">
       <div class="sh-label">Pourquoi réserver en ligne ?</div>
       <h2 class="sh-title">Simple. Rapide. Garanti.</h2>
     </div>
     <div class="why-grid">
-      <div class="wcard"><div class="wicon wi-p"><svg width="18" height="18" fill="none" stroke="#FF1A75" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Place sécurisée</h3><p>Dès le paiement, ta place est réservée. Pas de risque d'arriver et trouver complet.</p></div>
-      <div class="wcard"><div class="wicon wi-c"><svg width="18" height="18" fill="none" stroke="#00F5FF" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Entrée prioritaire</h3><p>QR code sur ton téléphone. Tu arrives, tu scanes, tu rentres — zéro queue.</p></div>
-      <div class="wcard"><div class="wicon wi-y"><svg width="18" height="18" fill="none" stroke="#FFD600" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h3>Paiement en 30 sec</h3><p>Mvola, Orange Money ou carte bleue. Tout depuis ton téléphone.</p></div>
-      <div class="wcard"><div class="wicon wi-pu"><svg width="18" height="18" fill="none" stroke="#A020F0" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Places limitées</h3><p>L'édition 1 était complète. Réserve maintenant — ceux qui attendent ratent.</p></div>
+      <div class="wcard"><div class="wicon wi-p"><svg width="17" height="17" fill="none" stroke="#FF1A75" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Place sécurisée</h3><p>Dès le paiement, ta place est réservée. Pas de risque d'arriver complet.</p></div>
+      <div class="wcard"><div class="wicon wi-c"><svg width="17" height="17" fill="none" stroke="#00F5FF" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Entrée prioritaire</h3><p>QR code sur ton téléphone. Tu arrives, tu scanes, tu rentres.</p></div>
+      <div class="wcard"><div class="wicon wi-y"><svg width="17" height="17" fill="none" stroke="#FFD600" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h3>Paiement en 30 sec</h3><p>Mvola, Orange Money ou carte bleue. Depuis ton smartphone.</p></div>
+      <div class="wcard"><div class="wicon wi-pu"><svg width="17" height="17" fill="none" stroke="#A020F0" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Places limitées</h3><p>L'édition 1 était complète. Réserve maintenant — ceux qui attendent ratent.</p></div>
     </div>
 
   </div><!-- /main-left -->
@@ -468,30 +530,23 @@
     <div class="ticket-panel">
       <div class="tp-header">
         <div class="tp-event-name">La Nuit de Nosy Be 2</div>
-        <div class="tp-meta">
-          <div class="tp-meta-row"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Samedi 20 Juin 2026 · 21h00</div>
-          <div class="tp-meta-row"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Libertalia Park · Nosy Be</div>
-        </div>
+        <div class="tp-meta-row"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Samedi 20 Juin 2026 · 21h00</div>
+        <div class="tp-meta-row"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Libertalia Park · Nosy Be</div>
       </div>
       <div class="tp-body">
-        <!-- Price -->
         <div class="price-box">
           <div>
-            <div class="price-main">20.000<span style="font-size:24px"> AR</span></div>
+            <div class="price-main">20.000<span style="font-size:22px"> AR</span></div>
             <div class="price-sub">PAF · Accès complet soirée</div>
           </div>
           <div class="avail-badge"><span class="avail-dot"></span>Disponible</div>
         </div>
-
-        <!-- Perks -->
         <ul class="perks">
-          <li><div class="pcheck"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Show complet — Rim-Ka · Ckycky · Majesty</li>
-          <li><div class="pcheck"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Accès dès 21h, soirée jusqu'à l'aube</li>
-          <li><div class="pcheck"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Entrée prioritaire QR code</li>
-          <li><div class="pcheck"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Confirmation SMS / email immédiate</li>
+          <li><div class="pcheck"><svg width="8" height="8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Show complet — Rim-Ka · Ckycky · Majesty</li>
+          <li><div class="pcheck"><svg width="8" height="8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Accès dès 21h, soirée jusqu'à l'aube</li>
+          <li><div class="pcheck"><svg width="8" height="8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Entrée prioritaire QR code</li>
+          <li><div class="pcheck"><svg width="8" height="8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Confirmation SMS / email immédiate</li>
         </ul>
-
-        <!-- Qty -->
         <div class="qty-section">
           <div class="qty-label">Nombre de billets</div>
           <div class="qty-row">
@@ -503,14 +558,10 @@
             </div>
           </div>
         </div>
-
-        <!-- Total -->
         <div class="total-row">
           <span>Total à payer</span>
           <strong id="qtotal">20.000 AR</strong>
         </div>
-
-        <!-- Payment -->
         <div class="pay-section">
           <div class="pay-label">Mode de paiement</div>
           <div class="pay-options">
@@ -518,7 +569,7 @@
               <input type="radio" name="pay" value="telma" checked/>
               <div class="popt-icon pi-t">MV</div>
               <div class="popt-info"><div class="popt-name">Mvola (Telma)</div><div class="popt-num">034 14 700 47</div></div>
-              <div class="popt-check"><svg width="9" height="9" fill="white" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke="white" stroke-width="3" fill="none"/></svg></div>
+              <div class="popt-check"><svg width="8" height="8" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
             </label>
             <label class="popt" id="po">
               <input type="radio" name="pay" value="orange"/>
@@ -534,17 +585,14 @@
             </label>
           </div>
         </div>
-
-        <!-- CTA -->
         <button class="btn-buy" id="bbuy">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
           Je réserve ma place
         </button>
-
         <div class="trust-row">
-          <div class="trust-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Sécurisé</div>
-          <div class="trust-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Garanti</div>
-          <div class="trust-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Instantané</div>
+          <div class="trust-item"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Sécurisé</div>
+          <div class="trust-item"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Garanti</div>
+          <div class="trust-item"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Instantané</div>
         </div>
       </div>
     </div>
@@ -557,7 +605,7 @@
   <div class="footer-inner">
     <div>
       <a class="footer-logo" href="index.html">LA NUIT DE NOSY BE 2</a>
-      <div style="margin-top:14px;font-size:13px;color:var(--grey);line-height:1.8">
+      <div style="margin-top:12px;font-size:13px;color:var(--grey);line-height:1.8">
         Un événement <strong style="color:var(--white)">MK &amp; Company</strong><br/>
         Production <strong style="color:var(--white)">Sart Studio</strong> · Beauté <strong style="color:var(--white)">Flora Institut</strong>
       </div>
@@ -590,25 +638,25 @@
 <!-- BOOKING MODAL -->
 <div class="modal-bg" id="modal">
   <div class="mbox">
-    <button class="mclose" id="mclose"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <button class="mclose" id="mclose" aria-label="Fermer"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <div id="fview">
       <h2>Tes informations</h2>
       <p class="msub" id="msub">1 billet · 20.000 AR · Mvola</p>
-      <div class="fg"><label for="nom">Prénom &amp; Nom</label><input type="text" id="nom" placeholder="Mireille Rakoto" autocomplete="name"/></div>
-      <div class="fg"><label for="tel">Téléphone</label><input type="tel" id="tel" placeholder="+261 XX XXX XX XX" autocomplete="tel"/></div>
-      <div class="fg"><label for="em">Email (optionnel)</label><input type="email" id="em" placeholder="ton@email.mg" autocomplete="email"/></div>
+      <div class="fg"><label for="nom">Prénom &amp; Nom</label><input type="text" id="nom" placeholder="Mireille Rakoto" autocomplete="name" inputmode="text"/></div>
+      <div class="fg"><label for="tel">Téléphone</label><input type="tel" id="tel" placeholder="+261 XX XXX XX XX" autocomplete="tel" inputmode="tel"/></div>
+      <div class="fg"><label for="em">Email (optionnel)</label><input type="email" id="em" placeholder="ton@email.mg" autocomplete="email" inputmode="email"/></div>
       <div id="card-fields">
-        <div class="fg"><label for="cn">Numéro de carte</label><input type="text" id="cn" placeholder="0000 0000 0000 0000" maxlength="19"/></div>
+        <div class="fg"><label for="cn">Numéro de carte</label><input type="text" id="cn" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric"/></div>
         <div class="fgrow">
-          <div class="fg"><label for="ex">Expiration</label><input type="text" id="ex" placeholder="MM/AA" maxlength="5"/></div>
-          <div class="fg"><label for="cv">CVV</label><input type="text" id="cv" placeholder="123" maxlength="3"/></div>
+          <div class="fg"><label for="ex">Expiration</label><input type="text" id="ex" placeholder="MM/AA" maxlength="5" inputmode="numeric"/></div>
+          <div class="fg"><label for="cv">CVV</label><input type="text" id="cv" placeholder="123" maxlength="3" inputmode="numeric"/></div>
         </div>
       </div>
       <div class="pay-info-box" id="pinfo"><strong>Mvola (Telma) :</strong> envoie le montant au <strong>034 14 700 47</strong> · Indique ton nom en référence. Confirmation SMS garantie.</div>
       <button class="btn-confirm" id="bconfirm">Confirmer et payer</button>
     </div>
     <div id="sview" class="sview" style="display:none">
-      <div class="sicon"><svg width="28" height="28" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="sicon"><svg width="26" height="26" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
       <h2>Billet réservé !</h2>
       <p>Paiement en cours de validation. Ton QR code arrive sous peu. On se retrouve le 20 juin à Libertalia Park !</p>
       <div class="ticket-recap" id="trecap"></div>
@@ -618,18 +666,22 @@
 </div>
 
 <script>
-/* Particles */
-const ptc=document.getElementById('pts');
-['#FF1A75','#FFD600','#00F5FF','#A020F0'].forEach(c=>{
-  for(let j=0;j<5;j++){
-    const p=document.createElement('div');p.className='particle';
-    const s=Math.random()*5+2;
-    p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${c};animation-duration:${Math.random()*14+9}s;animation-delay:${Math.random()*8}s;`;
-    ptc.appendChild(p);
-  }
-});
+/* ── Particles : uniquement sur desktop & motion OK ── */
+(function(){
+  if(window.matchMedia('(max-width:768px)').matches) return;
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const ptc=document.getElementById('pts');
+  ['#FF1A75','#FFD600','#00F5FF','#A020F0'].forEach(c=>{
+    for(let j=0;j<4;j++){
+      const p=document.createElement('div');p.className='particle';
+      const s=Math.random()*5+2;
+      p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${c};animation-duration:${Math.random()*14+9}s;animation-delay:${Math.random()*8}s;`;
+      ptc.appendChild(p);
+    }
+  });
+})();
 
-/* Countdown */
+/* ── Countdown ── */
 function cd(){
   const d=new Date('2026-06-20T21:00:00')-new Date();
   if(d<=0){['cdj','cdh','cdm','cds'].forEach(i=>document.getElementById(i).textContent='00');return;}
@@ -640,25 +692,40 @@ function cd(){
 }
 cd();setInterval(cd,1000);
 
-/* Sticky bar */
+/* ── Sticky bar (après scroll hors hero) ── */
 const hero=document.getElementById('heroSection');
 const sbar=document.getElementById('stickyBar');
-const obs=new IntersectionObserver(([e])=>sbar.classList.toggle('show',!e.isIntersecting),{threshold:0});
-obs.observe(hero);
+new IntersectionObserver(([e])=>sbar.classList.toggle('show',!e.isIntersecting),{threshold:0}).observe(hero);
 
-/* Qty */
+/* ── Mobile bottom CTA (masqué quand #tickets est visible) ── */
+const mobCta=document.getElementById('mobCta');
+const ticketsSection=document.getElementById('tickets');
+if(window.matchMedia('(max-width:768px)').matches && mobCta && ticketsSection){
+  const mobObs=new IntersectionObserver(([e])=>{
+    // Masquer la mob-bar quand le panneau billets est en vue
+    mobCta.classList.toggle('show',!e.isIntersecting);
+  },{threshold:0.2});
+  mobObs.observe(ticketsSection);
+  // Afficher d'abord après un léger délai (hero en vue = masqué)
+  const heroObs=new IntersectionObserver(([e])=>{
+    if(!e.isIntersecting) mobCta.classList.add('show');
+  },{threshold:0});
+  heroObs.observe(hero);
+}
+
+/* ── Qty ── */
 let qty=1;const PR=20000;
-const fmt=n=>n.toLocaleString('fr-FR').replace(/\s/g,'.')+' AR';
-document.getElementById('qm').onclick=()=>{if(qty>1){qty--;upQ();}};
-document.getElementById('qp').onclick=()=>{if(qty<10){qty++;upQ();}};
+const fmt=n=>n.toLocaleString('fr-FR').replace(/ /g,'.').replace(/\s/g,'.')+' AR';
+document.getElementById('qm').addEventListener('click',()=>{if(qty>1){qty--;upQ();}});
+document.getElementById('qp').addEventListener('click',()=>{if(qty<10){qty++;upQ();}});
 function upQ(){document.getElementById('qn').textContent=qty;document.getElementById('qtotal').textContent=fmt(qty*PR);}
 
-/* Payment */
+/* ── Payment ── */
 let pm='telma';
 const pinfo={
   telma:'<strong>Mvola (Telma) :</strong> envoie le montant au <strong style="color:#fff">034 14 700 47</strong> · Indique ton nom en référence. Confirmation SMS garantie.',
   orange:'<strong>Orange Money :</strong> envoie le montant au <strong style="color:#fff">032 90 322 27</strong> · Indique ton nom en référence. Confirmation SMS garantie.',
-  card:'<strong>Carte Bleue (Stripe) :</strong> paiement 100% sécurisé. Tu seras redirigé vers notre page Stripe. Remboursement garanti en cas de problème.'
+  card:'<strong>Carte Bleue (Stripe) :</strong> paiement 100% sécurisé. Tu seras redirigé vers notre page Stripe.'
 };
 const mlbl={telma:'Mvola (Telma)',orange:'Orange Money',card:'Carte Bleue'};
 document.querySelectorAll('.popt').forEach(p=>{
@@ -670,31 +737,25 @@ document.querySelectorAll('.popt').forEach(p=>{
   });
 });
 
-/* Modal */
+/* ── Modal ── */
+const STRIPE_LINK='https://buy.stripe.com/REMPLACE_PAR_TON_LIEN';
 function openM(){
   document.getElementById('msub').textContent=`${qty} billet${qty>1?'s':''} · ${fmt(qty*PR)} · ${mlbl[pm]}`;
   document.getElementById('fview').style.display='block';
   document.getElementById('sview').style.display='none';
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow='hidden';
-  setTimeout(()=>document.getElementById('nom').focus(),100);
+  setTimeout(()=>document.getElementById('nom').focus(),120);
 }
 function closeM(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
-document.getElementById('bbuy').onclick=openM;
-document.getElementById('mclose').onclick=closeM;
+document.getElementById('bbuy').addEventListener('click',openM);
+document.getElementById('mclose').addEventListener('click',closeM);
 document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeM();});
 
-/* Stripe Payment Link — remplace par ton vrai lien Stripe */
-const STRIPE_LINK='https://buy.stripe.com/REMPLACE_PAR_TON_LIEN';
-
-/* Confirm */
-document.getElementById('bconfirm').onclick=function(){
+document.getElementById('bconfirm').addEventListener('click',function(){
   const n=document.getElementById('nom').value.trim(),t=document.getElementById('tel').value.trim();
   if(!n||!t){alert('Merci de remplir ton nom et ton numéro.');return;}
-  if(pm==='card'){
-    window.open(STRIPE_LINK+'?quantity='+qty,'_blank');
-    return;
-  }
+  if(pm==='card'){window.open(STRIPE_LINK+'?quantity='+qty,'_blank');return;}
   this.disabled=true;this.textContent='Traitement…';
   setTimeout(()=>{
     document.getElementById('fview').style.display='none';
@@ -710,10 +771,10 @@ document.getElementById('bconfirm').onclick=function(){
       <div><span>Référence</span><strong>${ref}</strong></div>`;
     document.getElementById('sview').style.display='block';
     this.disabled=false;this.textContent='Confirmer et payer';
-  },1800);
-};
+  },1500);
+});
 
-/* Card format */
+/* Card formatting */
 document.getElementById('cn').addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').replace(/(.{4})/g,'$1 ').trim().substr(0,19);});
 document.getElementById('ex').addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').replace(/^(\d{2})(\d)/,'$1/$2').substr(0,5);});
 </script>
