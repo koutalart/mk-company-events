@@ -1,223 +1,305 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>La Nuit de Nosy Be 2 — Billetterie officielle</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>La Nuit de Nosy Be 2 — Billetterie officielle · 20 Juin 2026</title>
+  <meta name="description" content="Réserve ton billet pour La Nuit de Nosy Be 2 — 20 Juin 2026, Libertalia Park. Rim-Ka, Ckycky, Majesty. 20.000 AR."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --pink: #FF1A75; --yellow: #FFD600; --cyan: #00F5FF; --purple: #A020F0;
-      --dark: #08080F; --dark2: #110F1A; --dark3: #1C1828; --white: #F5F0FF; --grey: #7A7490;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --pink:#FF1A75;--yellow:#FFD600;--cyan:#00F5FF;--purple:#A020F0;
+      --dark:#09090F;--dark2:#111118;--dark3:#1A1A26;--card:#1E1E2C;
+      --white:#F0EEF8;--grey:#888;--border:rgba(255,255,255,.08);
+      --max:1300px;
     }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Source Sans 3', sans-serif; background: var(--dark); color: var(--white); overflow-x: hidden; }
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'Source Sans 3',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;min-height:100vh}
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; height: 64px;
-      background: rgba(8,8,15,0.95); backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+    /* ═══ NAV ═══ */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:200;
+      height:60px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 32px;background:rgba(9,9,15,.95);backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
     }
-    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; background: linear-gradient(90deg,var(--pink),var(--yellow)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
-    .nav-links { display:flex; gap:4px; list-style:none; }
-    .nav-links a { color:var(--grey); text-decoration:none; font-size:14px; font-weight:600; padding:8px 16px; border-radius:8px; transition:color .2s,background .2s; }
-    .nav-links a:hover { color:var(--white); background:rgba(255,255,255,0.06); }
-    .nav-links a.active { color:var(--white); }
-    .nav-pill { background:var(--pink); color:#fff; border:none; padding:10px 22px; border-radius:50px; font-weight:700; font-size:14px; cursor:pointer; letter-spacing:.3px; transition:transform .2s,box-shadow .2s; text-decoration:none; }
-    .nav-pill:hover { transform:scale(1.04); box-shadow:0 0 20px rgba(255,26,117,.45); }
-    .nav-mobile-menu { display:none; cursor:pointer; padding:8px; }
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+    .nav-center{display:flex;gap:2px;list-style:none}
+    .nav-center a{color:var(--grey);text-decoration:none;font-size:13px;font-weight:600;padding:7px 14px;border-radius:7px;transition:color .15s,background .15s;letter-spacing:.2px}
+    .nav-center a:hover{color:var(--white);background:rgba(255,255,255,.05)}
+    .nav-center a.active{color:var(--white)}
+    .nav-right{display:flex;align-items:center;gap:12px}
+    .nav-cta{background:var(--pink);color:#fff;border:none;padding:9px 20px;border-radius:6px;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.3px;transition:background .15s;text-decoration:none;white-space:nowrap}
+    .nav-cta:hover{background:#e0155f}
+    /* Sticky buy bar — appears after hero */
+    .sticky-bar{position:fixed;top:60px;left:0;right:0;z-index:190;background:rgba(20,20,30,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:10px 32px;display:flex;align-items:center;justify-content:space-between;transform:translateY(-100%);transition:transform .3s;pointer-events:none}
+    .sticky-bar.show{transform:translateY(0);pointer-events:all}
+    .sb-info{display:flex;align-items:center;gap:20px}
+    .sb-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px}
+    .sb-meta{font-size:12px;color:var(--grey);display:flex;gap:14px}
+    .sb-btn{background:var(--pink);color:#fff;border:none;padding:9px 22px;border-radius:6px;font-weight:700;font-size:13px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s}
+    .sb-btn:hover{background:#e0155f}
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
-      text-align:center; padding:100px 24px 60px; position:relative; overflow:hidden;
+    /* ═══ HERO ═══ */
+    .hero{
+      position:relative;min-height:100vh;display:flex;flex-direction:column;
+      justify-content:flex-end;padding:0 0 0;overflow:hidden;
     }
-    .hero-bg {
-      position:absolute; inset:0;
-      background: radial-gradient(ellipse 70% 60% at 50% -10%, rgba(160,32,240,.3) 0%,transparent 65%),
-        radial-gradient(ellipse 50% 40% at 5% 90%, rgba(255,26,117,.18) 0%,transparent 60%),
-        radial-gradient(ellipse 40% 35% at 95% 80%, rgba(0,245,255,.1) 0%,transparent 60%), var(--dark);
+    .hero-bg{
+      position:absolute;inset:0;z-index:0;
+      background:
+        radial-gradient(ellipse 100% 60% at 50% -5%,rgba(160,32,240,.35),transparent 60%),
+        radial-gradient(ellipse 60% 50% at 0% 100%,rgba(255,26,117,.2),transparent 55%),
+        radial-gradient(ellipse 50% 40% at 100% 90%,rgba(0,245,255,.1),transparent 50%),
+        var(--dark);
     }
-    .particles { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
-    .particle { position:absolute; border-radius:50%; animation:floatUp linear infinite; }
-    @keyframes floatUp { 0%{transform:translateY(100vh) rotate(0);opacity:0} 10%{opacity:.35} 90%{opacity:.35} 100%{transform:translateY(-80px) rotate(540deg);opacity:0} }
-
-    /* pill tag */
-    .hero-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(255,214,0,.08); border:1px solid rgba(255,214,0,.35); border-radius:50px; padding:6px 16px; font-size:12px; font-weight:700; color:var(--yellow); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:28px; }
-    .dot { width:7px; height:7px; background:var(--yellow); border-radius:50%; animation:pulse 1.6s ease infinite; }
-    @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.5);opacity:.5} }
-
-    /* title */
-    .hero-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(60px,13vw,124px); line-height:.9; letter-spacing:1px; }
-    .ht-1 { color:var(--white); display:block; }
-    .ht-2 { display:block; background:linear-gradient(90deg,var(--pink),var(--yellow)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .ht-num { display:inline-block; font-size:clamp(80px,17vw,148px); background:linear-gradient(135deg,var(--cyan),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; line-height:1; }
-
-    /* meta chips */
-    .hero-chips { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
-    .chip { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:50px; padding:9px 18px; font-size:14px; font-weight:600; color:var(--white); }
-    .chip svg { color:var(--pink); flex-shrink:0; }
-
-    /* countdown */
-    .countdown { display:flex; gap:10px; justify-content:center; margin-top:36px; flex-wrap:wrap; }
-    .cb { display:flex; flex-direction:column; align-items:center; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:14px 22px; min-width:76px; }
-    .cb-num { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; background:linear-gradient(180deg,#fff 30%,var(--pink)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .cb-lbl { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--grey); margin-top:4px; }
-
-    /* CTAs */
-    .hero-ctas { display:flex; gap:14px; justify-content:center; margin-top:40px; flex-wrap:wrap; }
-    .btn-main { background:linear-gradient(135deg,var(--pink),#c40060); color:#fff; border:none; padding:17px 40px; border-radius:50px; font-family:'Source Sans 3',sans-serif; font-weight:800; font-size:16px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:9px; box-shadow:0 8px 28px rgba(255,26,117,.4); transition:transform .2s,box-shadow .2s; letter-spacing:.3px; }
-    .btn-main:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(255,26,117,.55); }
-    .btn-ghost { background:transparent; color:var(--white); border:1.5px solid rgba(255,255,255,.2); padding:17px 32px; border-radius:50px; font-family:'Source Sans 3',sans-serif; font-weight:700; font-size:16px; cursor:pointer; text-decoration:none; transition:border-color .2s,background .2s; }
-    .btn-ghost:hover { border-color:var(--cyan); background:rgba(0,245,255,.05); }
-
-    /* ── MARQUEE ── */
-    .marquee { background:var(--pink); overflow:hidden; padding:13px 0; }
-    .mtrack { display:flex; width:max-content; animation:scroll 20s linear infinite; }
-    .mtrack span { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:2px; color:#fff; padding:0 28px; white-space:nowrap; }
-    .mdot { display:inline-block; width:5px; height:5px; background:rgba(255,255,255,.5); border-radius:50%; margin:0 4px; vertical-align:middle; }
-    @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-    /* ── EVENT STRIP ── */
-    .strip { display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid rgba(255,255,255,.05); border-bottom:1px solid rgba(255,255,255,.05); }
-    .strip-item { padding:28px 32px; border-right:1px solid rgba(255,255,255,.05); }
-    .strip-item:last-child { border-right:none; }
-    .strip-item .label { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--pink); display:block; margin-bottom:5px; }
-    .strip-item .val { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:.5px; display:block; }
-    .strip-item .sub { font-size:12px; color:var(--grey); margin-top:2px; }
-
-    /* ── SECTION BASE ── */
-    .section { padding:72px 24px; }
-    .inner { max-width:1080px; margin:0 auto; }
-    .s-label { font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--pink); margin-bottom:10px; }
-    .s-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,6vw,64px); line-height:1; margin-bottom:6px; }
-    .s-sub { font-size:16px; color:var(--grey); line-height:1.65; max-width:500px; }
-
-    /* ── WHY SECTION ── */
-    .why-bg { background:var(--dark2); }
-    .why-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; margin-top:44px; }
-    .why-card { background:var(--dark3); border:1px solid rgba(255,255,255,.06); border-radius:20px; padding:26px 22px; transition:transform .25s; }
-    .why-card:hover { transform:translateY(-5px); }
-    .wicon { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
-    .ip { background:rgba(255,26,117,.12); } .ic { background:rgba(0,245,255,.08); }
-    .iy { background:rgba(255,214,0,.08); } .ipu { background:rgba(160,32,240,.12); }
-    .why-card h3 { font-family:'Bebas Neue',sans-serif; font-size:20px; margin-bottom:8px; letter-spacing:.3px; }
-    .why-card p  { font-size:13px; color:var(--grey); line-height:1.65; }
-
-    /* ── TICKET SECTION ── */
-    .ticket-wrap { max-width:580px; margin:48px auto 0; }
-    .ticket-box { background:var(--dark2); border:1px solid rgba(255,255,255,.08); border-radius:28px; padding:36px; position:relative; overflow:hidden; }
-    .ticket-box::before { content:''; position:absolute; top:-80px; right:-80px; width:220px; height:220px; background:radial-gradient(circle,rgba(255,26,117,.1),transparent); border-radius:50%; pointer-events:none; }
-    .ticket-box::after  { content:''; position:absolute; bottom:-50px; left:-50px; width:180px; height:180px; background:radial-gradient(circle,rgba(0,245,255,.07),transparent); border-radius:50%; pointer-events:none; }
-
-    /* price */
-    .price-row { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:28px; }
-    .price-amount { font-family:'Bebas Neue',sans-serif; font-size:64px; line-height:1; background:linear-gradient(135deg,var(--yellow),var(--pink)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .price-unit { font-size:24px; }
-    .price-note { font-size:12px; color:var(--grey); font-weight:600; letter-spacing:.3px; }
-    .ticket-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,214,0,.08); border:1px solid rgba(255,214,0,.2); border-radius:50px; padding:5px 14px; font-size:12px; font-weight:700; color:var(--yellow); }
-
-    /* perks */
-    .perks { list-style:none; margin:20px 0 28px; display:flex; flex-direction:column; gap:11px; position:relative; z-index:1; }
-    .perks li { display:flex; align-items:center; gap:11px; font-size:14px; font-weight:500; }
-    .pcheck { width:20px; height:20px; flex-shrink:0; background:rgba(255,26,117,.12); border:1px solid rgba(255,26,117,.25); border-radius:50%; display:flex; align-items:center; justify-content:center; }
-    .pcheck svg { color:var(--pink); }
-
-    /* divider */
-    .tdivider { height:1px; background:rgba(255,255,255,.06); margin:0 0 24px; }
-
-    /* qty */
-    .qty-row { display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:14px 18px; margin-bottom:18px; position:relative; z-index:1; }
-    .qty-lbl { font-size:14px; font-weight:600; }
-    .qty-ctrl { display:flex; align-items:center; gap:14px; }
-    .qbtn { width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.04); color:var(--white); font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; line-height:1; }
-    .qbtn:hover { background:var(--pink); border-color:var(--pink); }
-    .qnum { font-family:'Bebas Neue',sans-serif; font-size:26px; min-width:28px; text-align:center; }
-
-    /* total */
-    .total-row { display:flex; align-items:center; justify-content:space-between; background:rgba(255,214,0,.05); border:1px solid rgba(255,214,0,.12); border-radius:12px; padding:14px 18px; margin-bottom:22px; position:relative; z-index:1; }
-    .total-row span { font-size:14px; font-weight:600; color:var(--grey); }
-    .total-row strong { font-family:'Bebas Neue',sans-serif; font-size:28px; background:linear-gradient(90deg,var(--yellow),var(--pink)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-
-    /* payment pills */
-    .pay-label { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--grey); text-align:center; margin-bottom:12px; position:relative; z-index:1; }
-    .pay-pills { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:22px; position:relative; z-index:1; }
-    .ppill { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); border-radius:50px; padding:9px 16px; font-size:13px; font-weight:700; cursor:pointer; transition:border-color .2s,background .2s,color .2s; }
-    .ppill:hover { border-color:var(--pink); }
-    .ppill input { display:none; }
-    .ppill.sel { border-color:var(--pink); background:rgba(255,26,117,.1); color:var(--pink); }
-    .pdot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
-
-    /* buy btn */
-    .btn-buy { width:100%; background:linear-gradient(135deg,var(--pink),#c40060); color:#fff; border:none; padding:18px; border-radius:14px; font-family:'Source Sans 3',sans-serif; font-weight:800; font-size:17px; cursor:pointer; box-shadow:0 8px 28px rgba(255,26,117,.35); transition:transform .2s,box-shadow .2s; display:flex; align-items:center; justify-content:center; gap:9px; position:relative; z-index:1; letter-spacing:.2px; }
-    .btn-buy:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(255,26,117,.5); }
-    .btn-buy:disabled { opacity:.55; cursor:not-allowed; transform:none; }
-
-    /* trust bar */
-    .trust-bar { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:18px; position:relative; z-index:1; }
-    .trust-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--grey); font-weight:600; }
-    .trust-item svg { color:var(--pink); }
-
-    /* ── MODAL ── */
-    .modal-bg { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.8); backdrop-filter:blur(10px); display:none; align-items:center; justify-content:center; padding:20px; }
-    .modal-bg.open { display:flex; }
-    .modal-box { background:var(--dark2); border:1px solid rgba(255,255,255,.1); border-radius:24px; padding:36px; max-width:460px; width:100%; position:relative; animation:mup .3s ease; }
-    @keyframes mup { from{transform:translateY(30px);opacity:0} to{transform:translateY(0);opacity:1} }
-    .m-close { position:absolute; top:16px; right:16px; width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.05); color:var(--grey); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
-    .m-close:hover { background:rgba(255,26,117,.15); color:var(--pink); }
-    .modal-box h2 { font-family:'Bebas Neue',sans-serif; font-size:32px; margin-bottom:4px; }
-    .modal-box .msub { font-size:13px; color:var(--grey); margin-bottom:24px; }
-    .fg { margin-bottom:16px; }
-    .fg label { display:block; font-size:12px; font-weight:700; letter-spacing:.5px; color:var(--grey); text-transform:uppercase; margin-bottom:7px; }
-    .fg input { width:100%; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:11px; padding:13px 15px; color:var(--white); font-family:'Source Sans 3',sans-serif; font-size:14px; outline:none; transition:border-color .2s; }
-    .fg input:focus { border-color:var(--pink); }
-    .fgrow { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .pay-info { background:rgba(255,214,0,.05); border:1px solid rgba(255,214,0,.12); border-radius:11px; padding:13px 15px; font-size:13px; color:var(--grey); margin-bottom:18px; line-height:1.6; }
-    .pay-info strong { color:var(--yellow); }
-    .btn-confirm { width:100%; background:linear-gradient(135deg,var(--pink),#c40060); color:#fff; border:none; padding:16px; border-radius:12px; font-weight:800; font-size:16px; cursor:pointer; transition:transform .2s,box-shadow .2s; box-shadow:0 6px 24px rgba(255,26,117,.3); font-family:'Source Sans 3',sans-serif; }
-    .btn-confirm:hover { transform:translateY(-2px); box-shadow:0 10px 36px rgba(255,26,117,.45); }
-    #card-fields { display:none; }
-
-    /* success */
-    .success-view { text-align:center; padding:12px 0; }
-    .sicon { width:68px; height:68px; background:linear-gradient(135deg,var(--pink),var(--purple)); border-radius:50%; margin:0 auto 18px; display:flex; align-items:center; justify-content:center; animation:scl .4s cubic-bezier(.175,.885,.32,1.275); }
-    @keyframes scl { from{transform:scale(0)} to{transform:scale(1)} }
-    .success-view h2 { font-family:'Bebas Neue',sans-serif; font-size:36px; background:linear-gradient(90deg,var(--pink),var(--yellow)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px; }
-    .success-view p { color:var(--grey); font-size:14px; line-height:1.65; margin-bottom:20px; }
-    .ticket-recap { background:rgba(255,255,255,.03); border:1px dashed rgba(255,255,255,.12); border-radius:14px; padding:18px; font-size:13px; color:var(--grey); text-align:left; margin-bottom:20px; }
-    .ticket-recap div { display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid rgba(255,255,255,.04); }
-    .ticket-recap div:last-child { border-bottom:none; }
-    .ticket-recap strong { color:var(--white); }
-
-    /* ── FOOTER ── */
-    footer { text-align:center; padding:36px 24px; border-top:1px solid rgba(255,255,255,.05); }
-    .footer-logo { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:3px; background:linear-gradient(90deg,var(--pink),var(--yellow)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; display:block; margin-bottom:10px; text-decoration:none; }
-    footer p { font-size:12px; color:var(--grey); line-height:1.9; }
-    footer a { color:var(--pink); text-decoration:none; }
-
-    /* ── RESPONSIVE ── */
-    @media(max-width:900px) {
-      .strip { grid-template-columns:repeat(2,1fr); }
-      .strip-item:nth-child(2) { border-right:none; }
-      .strip-item:nth-child(3) { border-right:1px solid rgba(255,255,255,.05); border-top:1px solid rgba(255,255,255,.05); }
-      .strip-item:nth-child(4) { border-top:1px solid rgba(255,255,255,.05); }
+    .particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+    .particle{position:absolute;border-radius:50%;animation:floatUp linear infinite}
+    @keyframes floatUp{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.3}90%{opacity:.2}100%{transform:translateY(-60px) scale(1.2);opacity:0}}
+    /* Artist silhouette visual */
+    .hero-artists-bg{
+      position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+      width:100%;max-width:900px;height:70%;
+      background:radial-gradient(ellipse 80% 100% at 50% 100%,rgba(255,26,117,.08),transparent 60%);
+      display:flex;align-items:flex-end;justify-content:center;z-index:2;pointer-events:none;
     }
-    @media(max-width:640px) {
-      nav { padding:0 16px; }
-      .nav-links { display:none; }
-      .strip { grid-template-columns:1fr 1fr; }
-      .strip-item { padding:20px 16px; }
-      .ticket-box { padding:24px 18px; }
-      .fgrow { grid-template-columns:1fr; }
-      .modal-box { padding:24px 18px; }
+    .hero-artists-names{
+      position:absolute;bottom:0;left:0;right:0;
+      display:flex;justify-content:center;gap:0;z-index:3;pointer-events:none;
+      padding-bottom:200px;
     }
-    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+    .artist-silhouette{
+      font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,12vw,140px);
+      letter-spacing:-2px;line-height:.85;opacity:.04;
+      -webkit-text-fill-color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.5);
+      user-select:none;
+    }
+    .hero-content{
+      position:relative;z-index:10;
+      max-width:var(--max);margin:0 auto;width:100%;
+      padding:100px 32px 0;
+      display:flex;flex-direction:column;align-items:center;text-align:center;
+    }
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.3);border-radius:50px;padding:6px 16px;font-size:11px;font-weight:700;color:var(--yellow);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}
+    .pulse-dot{width:7px;height:7px;background:var(--yellow);border-radius:50%;animation:pulse 1.6s ease infinite;flex-shrink:0}
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+    .hero-title{font-family:'Bebas Neue',sans-serif;line-height:.88;letter-spacing:1px;margin-bottom:0}
+    .ht-1{font-size:clamp(44px,8vw,90px);color:rgba(255,255,255,.9);display:block}
+    .ht-2{font-size:clamp(64px,14vw,148px);display:block;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .ht-num{font-size:clamp(100px,20vw,220px);display:block;background:linear-gradient(135deg,var(--cyan) 20%,var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:.8;margin-top:-16px}
+
+    /* Event meta row */
+    .event-meta{display:flex;gap:0;justify-content:center;margin:28px 0 32px;position:relative;z-index:10}
+    .em-item{display:flex;align-items:center;gap:8px;padding:0 22px;font-size:14px;font-weight:600;color:var(--white);border-right:1px solid var(--border)}
+    .em-item:last-child{border-right:none}
+    .em-item svg{color:var(--pink);flex-shrink:0}
+    .em-item span{color:var(--grey);font-size:12px;display:block;font-weight:400}
+
+    /* Countdown row */
+    .countdown-row{display:flex;gap:8px;justify-content:center;margin-bottom:32px;position:relative;z-index:10}
+    .cb{display:flex;flex-direction:column;align-items:center;padding:14px 20px;min-width:72px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px}
+    .cb-num{font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;background:linear-gradient(180deg,#fff 30%,rgba(255,26,117,.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .cb-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-top:2px}
+
+    /* Artist chips */
+    .hero-lineup{display:flex;gap:10px;justify-content:center;margin-bottom:36px;position:relative;z-index:10;flex-wrap:wrap}
+    .lchip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;padding:10px 18px;text-decoration:none;color:var(--white);transition:background .15s,border-color .15s}
+    .lchip:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18)}
+    .lchip-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .lchip-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.5px}
+    .lchip-role{font-size:10px;color:var(--grey);display:block;font-weight:600;letter-spacing:.5px}
+
+    /* Hero CTAs */
+    .hero-actions{display:flex;gap:12px;justify-content:center;margin-bottom:0;position:relative;z-index:10;flex-wrap:wrap}
+    .btn-primary{background:var(--pink);color:#fff;border:none;padding:16px 36px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-weight:800;font-size:15px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:9px;box-shadow:0 8px 32px rgba(255,26,117,.35);transition:background .15s,transform .15s,box-shadow .15s;letter-spacing:.3px}
+    .btn-primary:hover{background:#e0155f;transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,26,117,.5)}
+    .btn-outline{background:transparent;color:var(--white);border:1.5px solid var(--border);padding:16px 28px;border-radius:8px;font-family:'Source Sans 3',sans-serif;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none;transition:border-color .15s,background .15s}
+    .btn-outline:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05)}
+
+    /* ═══ MARQUEE ═══ */
+    .marquee{background:var(--pink);overflow:hidden;padding:11px 0;margin-top:48px;flex-shrink:0}
+    .mtrack{display:flex;width:max-content;animation:scroll 22s linear infinite}
+    .mtrack span{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2.5px;color:#fff;padding:0 24px;white-space:nowrap}
+    .mdot{display:inline-block;width:4px;height:4px;background:rgba(255,255,255,.5);border-radius:50%;margin:0 4px;vertical-align:middle}
+    @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* ═══ MAIN LAYOUT ═══ */
+    .main-layout{
+      max-width:var(--max);margin:0 auto;padding:48px 32px 80px;
+      display:grid;grid-template-columns:1fr 400px;gap:40px;align-items:start;
+    }
+    .main-left{}
+    .main-right{position:sticky;top:80px}
+
+    /* ═══ SECTION HEADERS ═══ */
+    .sh{margin-bottom:24px}
+    .sh-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:6px}
+    .sh-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,44px);line-height:1;letter-spacing:.3px}
+    .sh-sub{font-size:14px;color:var(--grey);margin-top:6px;line-height:1.6}
+
+    /* ═══ EVENT INFO STRIP ═══ */
+    .info-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;margin-bottom:40px}
+    .is-item{background:var(--dark2);padding:20px 18px}
+    .is-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:5px}
+    .is-val{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.3px}
+    .is-sub{font-size:11px;color:var(--grey);margin-top:2px}
+
+    /* ═══ WHY CARDS ═══ */
+    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
+    .wcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 18px;transition:border-color .2s}
+    .wcard:hover{border-color:rgba(255,26,117,.25)}
+    .wicon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+    .wi-p{background:rgba(255,26,117,.1)} .wi-c{background:rgba(0,245,255,.07)} .wi-y{background:rgba(255,214,0,.07)} .wi-pu{background:rgba(160,32,240,.1)}
+    .wcard h3{font-size:14px;font-weight:700;margin-bottom:5px}
+    .wcard p{font-size:12px;color:var(--grey);line-height:1.6}
+
+    /* ═══ ARTIST PREVIEWS ═══ */
+    .artist-previews{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:40px}
+    .ap{border-radius:14px;overflow:hidden;background:var(--card);border:1px solid var(--border);text-decoration:none;color:var(--white);transition:transform .2s,border-color .2s;display:block}
+    .ap:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.15)}
+    .ap-img{aspect-ratio:16/9;overflow:hidden}
+    .ap-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+    .ap:hover .ap-img img{transform:scale(1.06)}
+    .ap-body{padding:12px 14px}
+    .ap-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.3px;margin-bottom:2px}
+    .ap-genre{font-size:11px;color:var(--grey);font-weight:600}
+    .ap-see{font-size:11px;color:var(--pink);font-weight:700;margin-top:6px;display:block}
+
+    /* ═══ TICKET PANEL (sticky right) ═══ */
+    .ticket-panel{background:var(--dark2);border:1px solid var(--border);border-radius:18px;overflow:hidden}
+    .tp-header{padding:20px 22px 18px;border-bottom:1px solid var(--border)}
+    .tp-event-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.3px;margin-bottom:4px}
+    .tp-meta{display:flex;flex-direction:column;gap:4px}
+    .tp-meta-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--grey)}
+    .tp-meta-row svg{color:var(--pink);flex-shrink:0}
+    .tp-body{padding:20px 22px}
+
+    /* Price */
+    .price-box{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px}
+    .price-main{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;background:linear-gradient(135deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .price-sub{font-size:11px;color:var(--grey);font-weight:600;line-height:1.5}
+    .avail-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(0,200,80,.08);border:1px solid rgba(0,200,80,.2);border-radius:50px;padding:5px 12px;font-size:11px;font-weight:700;color:#00c850}
+    .avail-dot{width:6px;height:6px;background:#00c850;border-radius:50%;animation:pulse 1.6s ease infinite}
+
+    /* Perks */
+    .perks{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+    .perks li{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500}
+    .pcheck{width:18px;height:18px;flex-shrink:0;background:rgba(255,26,117,.1);border:1px solid rgba(255,26,117,.2);border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .pcheck svg{color:var(--pink)}
+
+    /* Qty */
+    .qty-section{margin-bottom:16px}
+    .qty-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey);margin-bottom:8px}
+    .qty-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:12px 16px}
+    .qty-ctrl{display:flex;align-items:center;gap:12px}
+    .qbtn{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--white);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;line-height:1}
+    .qbtn:hover{background:var(--pink);border-color:var(--pink)}
+    .qnum{font-family:'Bebas Neue',sans-serif;font-size:24px;min-width:26px;text-align:center}
+
+    /* Total */
+    .total-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,214,0,.05);border:1px solid rgba(255,214,0,.1);border-radius:10px;padding:12px 16px;margin-bottom:16px}
+    .total-row span{font-size:12px;color:var(--grey);font-weight:600}
+    .total-row strong{font-family:'Bebas Neue',sans-serif;font-size:26px;background:linear-gradient(90deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+    /* Payment select */
+    .pay-section{margin-bottom:16px}
+    .pay-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey);margin-bottom:8px}
+    .pay-options{display:flex;flex-direction:column;gap:6px}
+    .popt{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .15s,background .15s}
+    .popt:hover{border-color:rgba(255,255,255,.2)}
+    .popt.sel{border-color:var(--pink);background:rgba(255,26,117,.07)}
+    .popt input{display:none}
+    .popt-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10px;letter-spacing:.5px;flex-shrink:0}
+    .pi-t{background:#E00020;color:#fff}
+    .pi-o{background:#FF6600;color:#fff}
+    .pi-c{background:#2563EB;color:#fff}
+    .popt-info{flex:1}
+    .popt-name{font-size:13px;font-weight:700}
+    .popt-num{font-size:11px;color:var(--grey)}
+    .popt-check{width:18px;height:18px;border:1.5px solid var(--border);border-radius:50%;flex-shrink:0;transition:background .15s,border-color .15s;display:flex;align-items:center;justify-content:center}
+    .popt.sel .popt-check{background:var(--pink);border-color:var(--pink)}
+
+    /* Buy btn */
+    .btn-buy{width:100%;background:var(--pink);color:#fff;border:none;padding:16px;border-radius:10px;font-family:'Source Sans 3',sans-serif;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 6px 24px rgba(255,26,117,.3);transition:background .15s,transform .15s;display:flex;align-items:center;justify-content:center;gap:9px;letter-spacing:.2px;margin-bottom:14px}
+    .btn-buy:hover{background:#e0155f;transform:translateY(-1px)}
+    .btn-buy:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+    /* Trust */
+    .trust-row{display:flex;gap:0;justify-content:center;border-top:1px solid var(--border);padding-top:14px}
+    .trust-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--grey);font-weight:600;padding:0 10px;border-right:1px solid var(--border);flex:1;justify-content:center}
+    .trust-item:last-child{border-right:none}
+    .trust-item svg{color:var(--pink)}
+
+    /* ═══ MODAL ═══ */
+    .modal-bg{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal-bg.open{display:flex}
+    .mbox{background:var(--dark2);border:1px solid var(--border);border-radius:20px;padding:32px;max-width:440px;width:100%;position:relative;animation:mup .3s ease}
+    @keyframes mup{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .mclose{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--grey);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+    .mclose:hover{background:rgba(255,26,117,.12);color:var(--pink)}
+    .mbox h2{font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:3px}
+    .mbox .msub{font-size:12px;color:var(--grey);margin-bottom:22px}
+    .fg{margin-bottom:14px}
+    .fg label{display:block;font-size:11px;font-weight:700;letter-spacing:.5px;color:var(--grey);text-transform:uppercase;margin-bottom:6px}
+    .fg input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:12px 14px;color:var(--white);font-family:'Source Sans 3',sans-serif;font-size:14px;outline:none;transition:border-color .15s}
+    .fg input:focus{border-color:var(--pink)}
+    .fgrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .pay-info-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:9px;padding:12px 14px;font-size:12px;color:var(--grey);margin-bottom:16px;line-height:1.65}
+    .pay-info-box strong{color:var(--white)}
+    #card-fields{display:none}
+    .btn-confirm{width:100%;background:var(--pink);color:#fff;border:none;padding:14px;border-radius:9px;font-weight:800;font-size:15px;cursor:pointer;transition:background .15s;font-family:'Source Sans 3',sans-serif}
+    .btn-confirm:hover{background:#e0155f}
+
+    /* Success */
+    .sview{text-align:center;padding:8px 0}
+    .sicon{width:64px;height:64px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;animation:scl .4s cubic-bezier(.175,.885,.32,1.275)}
+    @keyframes scl{from{transform:scale(0)}to{transform:scale(1)}}
+    .sview h2{font-family:'Bebas Neue',sans-serif;font-size:32px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+    .sview p{color:var(--grey);font-size:13px;line-height:1.65;margin-bottom:16px}
+    .ticket-recap{background:rgba(255,255,255,.03);border:1px dashed var(--border);border-radius:12px;padding:16px;font-size:12px;color:var(--grey);text-align:left;margin-bottom:18px}
+    .ticket-recap div{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+    .ticket-recap div:last-child{border-bottom:none}
+    .ticket-recap strong{color:var(--white)}
+
+    /* ═══ FOOTER ═══ */
+    footer{border-top:1px solid var(--border);padding:32px;max-width:var(--max);margin:0 auto}
+    .footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:24px}
+    .fi-title{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;margin-bottom:12px;color:var(--grey)}
+    .fi-links{display:flex;flex-direction:column;gap:7px}
+    .fi-links a{font-size:13px;color:var(--grey);text-decoration:none;transition:color .15s}
+    .fi-links a:hover{color:var(--white)}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--grey)}
+    .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+
+    /* ═══ RESPONSIVE ═══ */
+    @media(max-width:1024px){
+      .main-layout{grid-template-columns:1fr;gap:32px}
+      .main-right{position:static}
+      .footer-inner{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:768px){
+      nav{padding:0 16px}
+      .nav-center{display:none}
+      .hero-content{padding:90px 16px 0}
+      .event-meta{flex-wrap:wrap;gap:4px}
+      .em-item{border:none;font-size:12px;padding:4px 12px;background:rgba(255,255,255,.04);border-radius:50px}
+      .info-strip{grid-template-columns:1fr 1fr}
+      .why-grid{grid-template-columns:1fr}
+      .artist-previews{grid-template-columns:1fr}
+      .main-layout{padding:32px 16px 60px}
+      .sticky-bar{padding:8px 16px}
+      .sb-meta{display:none}
+      .footer-inner{grid-template-columns:1fr}
+      footer{padding:24px 16px}
+    }
+    @media(max-width:480px){
+      .countdown-row .cb{padding:10px 14px;min-width:60px}
+      .cb-num{font-size:34px}
+    }
+    @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
   </style>
 </head>
 <body>
@@ -225,181 +307,293 @@
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">NUIT DE NOSY BE</a>
-  <ul class="nav-links">
+  <ul class="nav-center">
     <li><a href="index.html" class="active">Billetterie</a></li>
     <li><a href="artistes.html">Artistes</a></li>
     <li><a href="evenements.html">Événements</a></li>
   </ul>
-  <a class="nav-pill" href="#tickets">Acheter mon billet</a>
+  <div class="nav-right">
+    <a class="nav-cta" href="#tickets">Acheter mon billet</a>
+  </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sb-info">
+    <div class="sb-title">La Nuit de Nosy Be 2</div>
+    <div class="sb-meta">
+      <span>20 Juin 2026</span>
+      <span>Libertalia Park</span>
+      <span>20.000 AR</span>
+    </div>
+  </div>
+  <a class="sb-btn" href="#tickets">Réserver — 20.000 AR</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="heroSection">
   <div class="hero-bg"></div>
   <div class="particles" id="pts"></div>
-  <div class="hero-tag"><span class="dot"></span> Un événement MK &amp; Company</div>
-  <h1 class="hero-title">
-    <span class="ht-1">LA NUIT DE</span>
-    <span class="ht-2">NOSY BE</span>
-    <span class="ht-num">2</span>
-  </h1>
-  <div class="hero-chips">
-    <div class="chip">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      <strong>20 Juin 2026</strong>
+  <div class="hero-artists-bg"></div>
+  <div class="hero-artists-names">
+    <span class="artist-silhouette">RIM-KA</span>
+    <span class="artist-silhouette" style="margin:0 20px">CKYCKY</span>
+    <span class="artist-silhouette">MAJESTY</span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag"><span class="pulse-dot"></span>Un événement MK &amp; Company</div>
+    <h1 class="hero-title">
+      <span class="ht-1">LA NUIT DE</span>
+      <span class="ht-2">NOSY BE</span>
+      <span class="ht-num">2</span>
+    </h1>
+    <div class="event-meta">
+      <div class="em-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <div><strong>Samedi 20 Juin 2026</strong><span>Dans 32 jours</span></div>
+      </div>
+      <div class="em-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <div><strong>Libertalia Park</strong><span>By Rijade · Madagascar</span></div>
+      </div>
+      <div class="em-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div><strong>Dès 21h00</strong><span>Toute la nuit</span></div>
+      </div>
+      <div class="em-item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <div><strong>20.000 AR</strong><span>Tarif unique</span></div>
+      </div>
     </div>
-    <div class="chip">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-      <strong>Libertalia Park</strong>
+    <div class="countdown-row">
+      <div class="cb"><div class="cb-num" id="cdj">--</div><div class="cb-lbl">Jours</div></div>
+      <div class="cb"><div class="cb-num" id="cdh">--</div><div class="cb-lbl">Heures</div></div>
+      <div class="cb"><div class="cb-num" id="cdm">--</div><div class="cb-lbl">Mins</div></div>
+      <div class="cb"><div class="cb-num" id="cds">--</div><div class="cb-lbl">Secs</div></div>
     </div>
-    <div class="chip">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <strong>Dès 21h</strong>
+    <div class="hero-lineup">
+      <a class="lchip" href="artistes.html#rimka">
+        <span class="lchip-dot" style="background:var(--pink)"></span>
+        <div><span class="lchip-name">Rim-Ka</span><span class="lchip-role">Tête d'affiche</span></div>
+      </a>
+      <a class="lchip" href="artistes.html#ckycky">
+        <span class="lchip-dot" style="background:var(--cyan)"></span>
+        <div><span class="lchip-name">Ckycky</span><span class="lchip-role">Invité spécial</span></div>
+      </a>
+      <a class="lchip" href="artistes.html#majesty">
+        <span class="lchip-dot" style="background:var(--yellow)"></span>
+        <div><span class="lchip-name">Majesty</span><span class="lchip-role">Révélation</span></div>
+      </a>
+    </div>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#tickets">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        Réserver mon billet — 20.000 AR
+      </a>
+      <a class="btn-outline" href="artistes.html">Voir les artistes</a>
     </div>
   </div>
-  <div class="countdown">
-    <div class="cb"><div class="cb-num" id="cdj">00</div><div class="cb-lbl">Jours</div></div>
-    <div class="cb"><div class="cb-num" id="cdh">00</div><div class="cb-lbl">Heures</div></div>
-    <div class="cb"><div class="cb-num" id="cdm">00</div><div class="cb-lbl">Mins</div></div>
-    <div class="cb"><div class="cb-num" id="cds">00</div><div class="cb-lbl">Secs</div></div>
-  </div>
-  <div class="hero-ctas">
-    <a class="btn-main" href="#tickets">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-      Réserver maintenant
-    </a>
-    <a class="btn-ghost" href="artistes.html">Voir les artistes</a>
+  <!-- Marquee integrated in hero bottom -->
+  <div class="marquee">
+    <div class="mtrack">
+      <span>RIM-KA<span class="mdot"></span></span><span>CKYCKY<span class="mdot"></span></span><span>MAJESTY<span class="mdot"></span></span><span>20 JUIN 2026<span class="mdot"></span></span><span>LIBERTALIA PARK<span class="mdot"></span></span><span>20.000 AR<span class="mdot"></span></span><span>NOSY BE<span class="mdot"></span></span><span>MK &amp; COMPANY<span class="mdot"></span></span>
+      <span>RIM-KA<span class="mdot"></span></span><span>CKYCKY<span class="mdot"></span></span><span>MAJESTY<span class="mdot"></span></span><span>20 JUIN 2026<span class="mdot"></span></span><span>LIBERTALIA PARK<span class="mdot"></span></span><span>20.000 AR<span class="mdot"></span></span><span>NOSY BE<span class="mdot"></span></span><span>MK &amp; COMPANY<span class="mdot"></span></span>
+    </div>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee">
-  <div class="mtrack">
-    <span>RIM-KA<span class="mdot"></span></span><span>CKYCKY<span class="mdot"></span></span><span>MAJESTY<span class="mdot"></span></span><span>20 JUIN<span class="mdot"></span></span><span>LIBERTALIA PARK<span class="mdot"></span></span><span>20.000 AR<span class="mdot"></span></span><span>À PARTIR DE 21H<span class="mdot"></span></span>
-    <span>RIM-KA<span class="mdot"></span></span><span>CKYCKY<span class="mdot"></span></span><span>MAJESTY<span class="mdot"></span></span><span>20 JUIN<span class="mdot"></span></span><span>LIBERTALIA PARK<span class="mdot"></span></span><span>20.000 AR<span class="mdot"></span></span><span>À PARTIR DE 21H<span class="mdot"></span></span>
-  </div>
-</div>
+<!-- ═══ MAIN LAYOUT ═══ -->
+<div class="main-layout">
 
-<!-- EVENT STRIP -->
-<div class="strip">
-  <div class="strip-item"><span class="label">Date</span><span class="val">20 Juin 2026</span><div class="sub">Vendredi soir</div></div>
-  <div class="strip-item"><span class="label">Lieu</span><span class="val">Libertalia Park</span><div class="sub">By Rijade · Madagascar</div></div>
-  <div class="strip-item"><span class="label">Ouverture</span><span class="val">21h00</span><div class="sub">Show toute la nuit</div></div>
-  <div class="strip-item"><span class="label">PAF</span><span class="val">20.000 AR</span><div class="sub">Tarif unique</div></div>
-</div>
+  <!-- LEFT COLUMN -->
+  <div class="main-left">
 
-<!-- WHY ONLINE -->
-<section class="section why-bg">
-  <div class="inner">
-    <div class="s-label">Pourquoi réserver en ligne ?</div>
-    <h2 class="s-title">Simple. Rapide. Garanti.</h2>
+    <!-- Event info strip -->
+    <div class="info-strip">
+      <div class="is-item"><div class="is-label">Date</div><div class="is-val">20 Juin 2026</div><div class="is-sub">Vendredi soir</div></div>
+      <div class="is-item"><div class="is-label">Lieu</div><div class="is-val">Libertalia Park</div><div class="is-sub">By Rijade · Madagascar</div></div>
+      <div class="is-item"><div class="is-label">Ouverture</div><div class="is-val">21h00</div><div class="is-sub">Show toute la nuit</div></div>
+      <div class="is-item"><div class="is-label">PAF</div><div class="is-val">20.000 AR</div><div class="is-sub">Tarif unique</div></div>
+    </div>
+
+    <!-- Artist previews -->
+    <div class="sh">
+      <div class="sh-label">Line-up</div>
+      <h2 class="sh-title">Les artistes de la soirée</h2>
+      <p class="sh-sub">Clique sur un artiste pour découvrir sa bio, ses clips et sa discographie.</p>
+    </div>
+    <div class="artist-previews">
+      <a class="ap" href="artistes.html#rimka">
+        <div class="ap-img"><img src="https://img.youtube.com/vi/stlvGoppr4A/maxresdefault.jpg" alt="Rim-Ka" loading="lazy" onerror="this.src='https://img.youtube.com/vi/stlvGoppr4A/hqdefault.jpg'"/></div>
+        <div class="ap-body">
+          <div class="ap-name" style="background:linear-gradient(90deg,#fff,var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Rim-Ka</div>
+          <div class="ap-genre">Afropop · Trap · Bongo Flavor</div>
+          <span class="ap-see">Voir la discographie →</span>
+        </div>
+      </a>
+      <a class="ap" href="artistes.html#ckycky">
+        <div class="ap-img"><img src="https://img.youtube.com/vi/z3LCYOvqNYA/maxresdefault.jpg" alt="Ckycky" loading="lazy" onerror="this.src='https://img.youtube.com/vi/z3LCYOvqNYA/hqdefault.jpg'"/></div>
+        <div class="ap-body">
+          <div class="ap-name" style="background:linear-gradient(90deg,#fff,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Ckycky</div>
+          <div class="ap-genre">Afro-Malagasy · R&B · Urban</div>
+          <span class="ap-see">Voir la discographie →</span>
+        </div>
+      </a>
+      <a class="ap" href="artistes.html#majesty">
+        <div class="ap-img"><img src="https://img.youtube.com/vi/K09qCjqYzv8/maxresdefault.jpg" alt="Majesty" loading="lazy" onerror="this.src='https://img.youtube.com/vi/K09qCjqYzv8/hqdefault.jpg'"/></div>
+        <div class="ap-body">
+          <div class="ap-name" style="background:linear-gradient(90deg,#fff,var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Majesty</div>
+          <div class="ap-genre">Dancehall · Afro Urban</div>
+          <span class="ap-see">Voir la discographie →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Why online -->
+    <div class="sh">
+      <div class="sh-label">Pourquoi réserver en ligne ?</div>
+      <h2 class="sh-title">Simple. Rapide. Garanti.</h2>
+    </div>
     <div class="why-grid">
-      <div class="why-card">
-        <div class="wicon ip"><svg width="22" height="22" fill="none" stroke="#FF1A75" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Place sécurisée</h3>
-        <p>Dès le paiement, ta place est réservée. Pas de risque d'arriver et trouver complet.</p>
-      </div>
-      <div class="why-card">
-        <div class="wicon ic"><svg width="22" height="22" fill="none" stroke="#00F5FF" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <h3>Entrée prioritaire</h3>
-        <p>QR code sur ton téléphone. Tu arrives, tu scanes et tu rentres direct — zéro queue.</p>
-      </div>
-      <div class="why-card">
-        <div class="wicon iy"><svg width="22" height="22" fill="none" stroke="#FFD600" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
-        <h3>Paiement en 30 sec</h3>
-        <p>Telma, Orange Money ou carte bleue. Tout depuis ton téléphone en quelques secondes.</p>
-      </div>
-      <div class="why-card">
-        <div class="wicon ipu"><svg width="22" height="22" fill="none" stroke="#A020F0" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <h3>Places limitées</h3>
-        <p>L'édition 1 était complète. Réserve maintenant — ceux qui attendent ratent.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TICKETS -->
-<section class="section" id="tickets">
-  <div class="inner">
-    <div style="text-align:center; margin-bottom:44px;">
-      <div class="s-label" style="justify-content:center;display:flex;">Billetterie officielle</div>
-      <h2 class="s-title">Ton billet pour la nuit</h2>
-      <p class="s-sub" style="margin:0 auto;">Un seul tarif. Accès complet à toute la soirée — les 3 artistes, live, jusqu'au bout.</p>
+      <div class="wcard"><div class="wicon wi-p"><svg width="18" height="18" fill="none" stroke="#FF1A75" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Place sécurisée</h3><p>Dès le paiement, ta place est réservée. Pas de risque d'arriver et trouver complet.</p></div>
+      <div class="wcard"><div class="wicon wi-c"><svg width="18" height="18" fill="none" stroke="#00F5FF" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Entrée prioritaire</h3><p>QR code sur ton téléphone. Tu arrives, tu scanes, tu rentres — zéro queue.</p></div>
+      <div class="wcard"><div class="wicon wi-y"><svg width="18" height="18" fill="none" stroke="#FFD600" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h3>Paiement en 30 sec</h3><p>Mvola, Orange Money ou carte bleue. Tout depuis ton téléphone.</p></div>
+      <div class="wcard"><div class="wicon wi-pu"><svg width="18" height="18" fill="none" stroke="#A020F0" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Places limitées</h3><p>L'édition 1 était complète. Réserve maintenant — ceux qui attendent ratent.</p></div>
     </div>
 
-    <div class="ticket-wrap">
-      <div class="ticket-box">
-        <div class="price-row">
+  </div><!-- /main-left -->
+
+  <!-- RIGHT COLUMN — sticky ticket panel -->
+  <div class="main-right" id="tickets">
+    <div class="ticket-panel">
+      <div class="tp-header">
+        <div class="tp-event-name">La Nuit de Nosy Be 2</div>
+        <div class="tp-meta">
+          <div class="tp-meta-row"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Samedi 20 Juin 2026 · 21h00</div>
+          <div class="tp-meta-row"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Libertalia Park · Nosy Be</div>
+        </div>
+      </div>
+      <div class="tp-body">
+        <!-- Price -->
+        <div class="price-box">
           <div>
-            <div class="price-amount">20.000<span class="price-unit"> AR</span></div>
-            <div class="price-note">PAF — Participation aux frais</div>
+            <div class="price-main">20.000<span style="font-size:24px"> AR</span></div>
+            <div class="price-sub">PAF · Accès complet soirée</div>
           </div>
-          <div class="ticket-badge">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Paiement sécurisé
-          </div>
+          <div class="avail-badge"><span class="avail-dot"></span>Disponible</div>
         </div>
 
+        <!-- Perks -->
         <ul class="perks">
-          <li><div class="pcheck"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Show complet — Rim-Ka · Ckycky · Majesty en live</li>
-          <li><div class="pcheck"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Accès dès 21h, soirée jusqu'à l'aube</li>
-          <li><div class="pcheck"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Entrée prioritaire avec QR code</li>
-          <li><div class="pcheck"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Confirmation immédiate par SMS / email</li>
+          <li><div class="pcheck"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Show complet — Rim-Ka · Ckycky · Majesty</li>
+          <li><div class="pcheck"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Accès dès 21h, soirée jusqu'à l'aube</li>
+          <li><div class="pcheck"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Entrée prioritaire QR code</li>
+          <li><div class="pcheck"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Confirmation SMS / email immédiate</li>
         </ul>
 
-        <div class="tdivider"></div>
-
-        <div class="qty-row">
-          <div class="qty-lbl">Nombre de billets</div>
-          <div class="qty-ctrl">
-            <button class="qbtn" id="qm" aria-label="Moins">−</button>
-            <div class="qnum" id="qn">1</div>
-            <button class="qbtn" id="qp" aria-label="Plus">+</button>
+        <!-- Qty -->
+        <div class="qty-section">
+          <div class="qty-label">Nombre de billets</div>
+          <div class="qty-row">
+            <span style="font-size:13px;font-weight:600">Billet standard</span>
+            <div class="qty-ctrl">
+              <button class="qbtn" id="qm" aria-label="Moins">−</button>
+              <div class="qnum" id="qn">1</div>
+              <button class="qbtn" id="qp" aria-label="Plus">+</button>
+            </div>
           </div>
         </div>
 
+        <!-- Total -->
         <div class="total-row">
           <span>Total à payer</span>
           <strong id="qtotal">20.000 AR</strong>
         </div>
 
-        <div class="pay-label">Mode de paiement</div>
-        <div class="pay-pills">
-          <label class="ppill sel" id="pt"><input type="radio" name="pay" value="telma" checked/><div class="pdot" style="background:#E00020"></div>Mvola (Telma)</label>
-          <label class="ppill" id="po"><input type="radio" name="pay" value="orange"/><div class="pdot" style="background:#FF6600"></div>Orange Money</label>
-          <label class="ppill" id="pc"><input type="radio" name="pay" value="card"/><div class="pdot" style="background:#2563EB"></div>Carte Bleue</label>
+        <!-- Payment -->
+        <div class="pay-section">
+          <div class="pay-label">Mode de paiement</div>
+          <div class="pay-options">
+            <label class="popt sel" id="pt">
+              <input type="radio" name="pay" value="telma" checked/>
+              <div class="popt-icon pi-t">MV</div>
+              <div class="popt-info"><div class="popt-name">Mvola (Telma)</div><div class="popt-num">034 14 700 47</div></div>
+              <div class="popt-check"><svg width="9" height="9" fill="white" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke="white" stroke-width="3" fill="none"/></svg></div>
+            </label>
+            <label class="popt" id="po">
+              <input type="radio" name="pay" value="orange"/>
+              <div class="popt-icon pi-o">OM</div>
+              <div class="popt-info"><div class="popt-name">Orange Money</div><div class="popt-num">032 90 322 27</div></div>
+              <div class="popt-check"></div>
+            </label>
+            <label class="popt" id="pc">
+              <input type="radio" name="pay" value="card"/>
+              <div class="popt-icon pi-c">CB</div>
+              <div class="popt-info"><div class="popt-name">Carte Bleue</div><div class="popt-num">Paiement Stripe sécurisé</div></div>
+              <div class="popt-check"></div>
+            </label>
+          </div>
         </div>
 
+        <!-- CTA -->
         <button class="btn-buy" id="bbuy">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
           Je réserve ma place
         </button>
 
-        <div class="trust-bar">
-          <div class="trust-item"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Paiement chiffré</div>
-          <div class="trust-item"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Billet garanti</div>
-          <div class="trust-item"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Confirmation immédiate</div>
+        <div class="trust-row">
+          <div class="trust-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Sécurisé</div>
+          <div class="trust-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Garanti</div>
+          <div class="trust-item"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Instantané</div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </div><!-- /main-right -->
+
+</div><!-- /main-layout -->
 
 <!-- FOOTER -->
 <footer>
-  <a class="footer-logo" href="index.html">LA NUIT DE NOSY BE 2</a>
-  <p>Un événement <strong>MK &amp; Company</strong> · Production <strong>Sart Studio</strong> · Beauté <strong>Flora Institut</strong><br/>
-  Contact : <a href="tel:+261384453352">+261 38 44 533 52</a><br/>
-  <span style="opacity:.4;font-size:11px;">© 2026 MK &amp; Company</span></p>
+  <div class="footer-inner">
+    <div>
+      <a class="footer-logo" href="index.html">LA NUIT DE NOSY BE 2</a>
+      <div style="margin-top:14px;font-size:13px;color:var(--grey);line-height:1.8">
+        Un événement <strong style="color:var(--white)">MK &amp; Company</strong><br/>
+        Production <strong style="color:var(--white)">Sart Studio</strong> · Beauté <strong style="color:var(--white)">Flora Institut</strong>
+      </div>
+    </div>
+    <div>
+      <div class="fi-title">Navigation</div>
+      <div class="fi-links">
+        <a href="index.html">Billetterie</a>
+        <a href="artistes.html">Artistes — Line-up</a>
+        <a href="evenements.html">Événements passés</a>
+        <a href="soma-beach.html">Sôma Beach</a>
+      </div>
+    </div>
+    <div>
+      <div class="fi-title">Contact &amp; Paiement</div>
+      <div class="fi-links">
+        <a href="tel:+261329032227">+261 32 90 322 27</a>
+        <a href="#">Orange Money : 032 90 322 27</a>
+        <a href="#">Mvola : 034 14 700 47</a>
+        <a href="#tickets">Réserver mon billet →</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 MK &amp; Company · Tous droits réservés</span>
+    <span>Nosy Be · Madagascar</span>
+  </div>
 </footer>
 
 <!-- BOOKING MODAL -->
 <div class="modal-bg" id="modal">
-  <div class="modal-box">
-    <button class="m-close" id="mclose"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <div class="mbox">
+    <button class="mclose" id="mclose"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <div id="fview">
-      <h2>Tes infos</h2>
-      <p class="msub" id="msub">1 billet · 20.000 AR · Telma Money</p>
+      <h2>Tes informations</h2>
+      <p class="msub" id="msub">1 billet · 20.000 AR · Mvola</p>
       <div class="fg"><label for="nom">Prénom &amp; Nom</label><input type="text" id="nom" placeholder="Mireille Rakoto" autocomplete="name"/></div>
       <div class="fg"><label for="tel">Téléphone</label><input type="tel" id="tel" placeholder="+261 XX XXX XX XX" autocomplete="tel"/></div>
       <div class="fg"><label for="em">Email (optionnel)</label><input type="email" id="em" placeholder="ton@email.mg" autocomplete="email"/></div>
@@ -410,11 +604,11 @@
           <div class="fg"><label for="cv">CVV</label><input type="text" id="cv" placeholder="123" maxlength="3"/></div>
         </div>
       </div>
-      <div class="pay-info" id="pinfo"><strong>Telma Money :</strong> tu recevras une demande de paiement sur ton numéro. Confirme pour valider ta réservation.</div>
+      <div class="pay-info-box" id="pinfo"><strong>Mvola (Telma) :</strong> envoie le montant au <strong>034 14 700 47</strong> · Indique ton nom en référence. Confirmation SMS garantie.</div>
       <button class="btn-confirm" id="bconfirm">Confirmer et payer</button>
     </div>
-    <div id="sview" class="success-view" style="display:none">
-      <div class="sicon"><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div id="sview" class="sview" style="display:none">
+      <div class="sicon"><svg width="28" height="28" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
       <h2>Billet réservé !</h2>
       <p>Paiement en cours de validation. Ton QR code arrive sous peu. On se retrouve le 20 juin à Libertalia Park !</p>
       <div class="ticket-recap" id="trecap"></div>
@@ -426,11 +620,11 @@
 <script>
 /* Particles */
 const ptc=document.getElementById('pts');
-['#FF1A75','#FFD600','#00F5FF','#A020F0'].forEach((c,i)=>{
+['#FF1A75','#FFD600','#00F5FF','#A020F0'].forEach(c=>{
   for(let j=0;j<5;j++){
-    const p=document.createElement('div'); p.className='particle';
-    const s=Math.random()*5+3;
-    p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${c};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*8}s;opacity:.3;`;
+    const p=document.createElement('div');p.className='particle';
+    const s=Math.random()*5+2;
+    p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${c};animation-duration:${Math.random()*14+9}s;animation-delay:${Math.random()*8}s;`;
     ptc.appendChild(p);
   }
 });
@@ -444,10 +638,16 @@ function cd(){
   document.getElementById('cdm').textContent=String(Math.floor(d%3600000/60000)).padStart(2,'0');
   document.getElementById('cds').textContent=String(Math.floor(d%60000/1000)).padStart(2,'0');
 }
-cd(); setInterval(cd,1000);
+cd();setInterval(cd,1000);
+
+/* Sticky bar */
+const hero=document.getElementById('heroSection');
+const sbar=document.getElementById('stickyBar');
+const obs=new IntersectionObserver(([e])=>sbar.classList.toggle('show',!e.isIntersecting),{threshold:0});
+obs.observe(hero);
 
 /* Qty */
-let qty=1; const PR=20000;
+let qty=1;const PR=20000;
 const fmt=n=>n.toLocaleString('fr-FR').replace(/\s/g,'.')+' AR';
 document.getElementById('qm').onclick=()=>{if(qty>1){qty--;upQ();}};
 document.getElementById('qp').onclick=()=>{if(qty<10){qty++;upQ();}};
@@ -456,15 +656,15 @@ function upQ(){document.getElementById('qn').textContent=qty;document.getElement
 /* Payment */
 let pm='telma';
 const pinfo={
-  telma:'<strong>Mvola (Telma) :</strong> envoie le montant au <strong style="color:#fff">034 14 700 47</strong> · Indique ton nom en référence. Tu recevras une confirmation SMS.',
+  telma:'<strong>Mvola (Telma) :</strong> envoie le montant au <strong style="color:#fff">034 14 700 47</strong> · Indique ton nom en référence. Confirmation SMS garantie.',
   orange:'<strong>Orange Money :</strong> envoie le montant au <strong style="color:#fff">032 90 322 27</strong> · Indique ton nom en référence. Confirmation SMS garantie.',
   card:'<strong>Carte Bleue (Stripe) :</strong> paiement 100% sécurisé. Tu seras redirigé vers notre page Stripe. Remboursement garanti en cas de problème.'
 };
 const mlbl={telma:'Mvola (Telma)',orange:'Orange Money',card:'Carte Bleue'};
-document.querySelectorAll('.ppill').forEach(p=>{
+document.querySelectorAll('.popt').forEach(p=>{
   p.addEventListener('click',()=>{
-    document.querySelectorAll('.ppill').forEach(x=>x.classList.remove('sel'));
-    p.classList.add('sel'); pm=p.querySelector('input').value;
+    document.querySelectorAll('.popt').forEach(x=>x.classList.remove('sel'));
+    p.classList.add('sel');pm=p.querySelector('input').value;
     document.getElementById('card-fields').style.display=pm==='card'?'block':'none';
     document.getElementById('pinfo').innerHTML=pinfo[pm];
   });
@@ -484,37 +684,32 @@ document.getElementById('bbuy').onclick=openM;
 document.getElementById('mclose').onclick=closeM;
 document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeM();});
 
-/* Confirm */
-// ⚠️ STRIPE : remplace cette URL par ton Payment Link Stripe réel
-// Crée-le sur dashboard.stripe.com → Payment Links → Create
-const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/REMPLACE_PAR_TON_LIEN';
+/* Stripe Payment Link — remplace par ton vrai lien Stripe */
+const STRIPE_LINK='https://buy.stripe.com/REMPLACE_PAR_TON_LIEN';
 
+/* Confirm */
 document.getElementById('bconfirm').onclick=function(){
   const n=document.getElementById('nom').value.trim(),t=document.getElementById('tel').value.trim();
   if(!n||!t){alert('Merci de remplir ton nom et ton numéro.');return;}
-
-  // Carte Bleue → redirection Stripe Payment Link
   if(pm==='card'){
-    const stripeUrl=`${STRIPE_PAYMENT_LINK}?prefilled_email=&client_reference_id=NNB2-${Math.random().toString(36).substr(2,6).toUpperCase()}&quantity=${qty}`;
-    window.open(stripeUrl,'_blank');
+    window.open(STRIPE_LINK+'?quantity='+qty,'_blank');
     return;
   }
-
-  this.disabled=true; this.textContent='Traitement…';
+  this.disabled=true;this.textContent='Traitement…';
   setTimeout(()=>{
     document.getElementById('fview').style.display='none';
     const ref='NNB2-'+Math.random().toString(36).substr(2,8).toUpperCase();
-    const numPaiement = pm==='telma' ? '034 14 700 47' : '032 90 322 27';
+    const num=pm==='telma'?'034 14 700 47':'032 90 322 27';
     document.getElementById('trecap').innerHTML=`
       <div><span>Événement</span><strong>La Nuit de Nosy Be 2</strong></div>
       <div><span>Nom</span><strong>${n}</strong></div>
       <div><span>Billets</span><strong>${qty}</strong></div>
       <div><span>Total</span><strong>${fmt(qty*PR)}</strong></div>
       <div><span>Paiement</span><strong>${mlbl[pm]}</strong></div>
-      <div><span>Numéro</span><strong>${numPaiement}</strong></div>
+      <div><span>Envoyer au</span><strong>${num}</strong></div>
       <div><span>Référence</span><strong>${ref}</strong></div>`;
     document.getElementById('sview').style.display='block';
-    this.disabled=false; this.textContent='Confirmer et payer';
+    this.disabled=false;this.textContent='Confirmer et payer';
   },1800);
 };
 
