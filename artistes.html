@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Artistes — La Nuit de Nosy Be 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --pink:#FF1A75;--yellow:#FFD600;--cyan:#00F5FF;--purple:#A020F0;
+      --dark:#08080F;--dark2:#110F1A;--dark3:#1C1828;--white:#F5F0FF;--grey:#7A7490;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Source Sans 3',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:rgba(8,8,15,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+    .nav-links{display:flex;gap:4px;list-style:none}
+    .nav-links a{color:var(--grey);text-decoration:none;font-size:14px;font-weight:600;padding:8px 16px;border-radius:8px;transition:color .2s,background .2s}
+    .nav-links a:hover{color:var(--white);background:rgba(255,255,255,.06)}
+    .nav-links a.active{color:var(--white)}
+    .nav-pill{background:var(--pink);color:#fff;border:none;padding:10px 22px;border-radius:50px;font-weight:700;font-size:14px;cursor:pointer;letter-spacing:.3px;transition:transform .2s,box-shadow .2s;text-decoration:none}
+    .nav-pill:hover{transform:scale(1.04);box-shadow:0 0 20px rgba(255,26,117,.45)}
+
+    /* PAGE HEADER */
+    .page-header{padding:120px 24px 56px;text-align:center;position:relative;overflow:hidden}
+    .page-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(160,32,240,.2),transparent 70%)}
+    .ph-label{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink);margin-bottom:12px}
+    .ph-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,10vw,96px);line-height:.95;margin-bottom:14px}
+    .ph-sub{font-size:16px;color:var(--grey);max-width:480px;margin:0 auto;line-height:1.65}
+
+    /* ARTIST TABS */
+    .tabs-wrap{position:sticky;top:64px;z-index:50;background:rgba(8,8,15,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .tabs{display:flex;max-width:1080px;margin:0 auto;padding:0 24px;gap:0}
+    .tab{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--grey);cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;text-decoration:none;position:relative}
+    .tab:hover{color:var(--white)}
+    .tab.active{color:var(--white);border-bottom-color:var(--pink)}
+    .tab-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+    /* SECTION */
+    .section{padding:64px 24px;max-width:1080px;margin:0 auto}
+    .artist-section{display:none}
+    .artist-section.visible{display:block}
+
+    /* ARTIST HERO */
+    .ah{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:56px}
+    .ah-media{}
+    .ah-main{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/9;cursor:pointer;margin-bottom:14px}
+    .ah-main img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+    .ah-main:hover img{transform:scale(1.04)}
+    .ah-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,15,.7),transparent 50%)}
+    .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;background:rgba(0,0,0,.25)}
+    .ah-main:hover .play-overlay{opacity:1}
+    .play-big{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+
+    /* video thumbs */
+    .vid-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .vthumb{position:relative;border-radius:13px;overflow:hidden;aspect-ratio:16/9;cursor:pointer;background:var(--dark2)}
+    .vthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+    .vthumb:hover img{transform:scale(1.06)}
+    .vthumb-ov{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;transition:background .2s}
+    .vthumb:hover .vthumb-ov{background:rgba(0,0,0,.1)}
+    .play-sm{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .vthumb-title{position:absolute;bottom:0;left:0;right:0;padding:6px 9px;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);font-size:11px;font-weight:600;line-height:1.3}
+
+    /* artist info */
+    .ah-info{padding-top:4px}
+    .a-num{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:rgba(255,255,255,.15);margin-bottom:8px}
+    .a-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin-bottom:14px}
+    .badge-p{background:rgba(255,26,117,.12);color:var(--pink);border:1px solid rgba(255,26,117,.3)}
+    .badge-c{background:rgba(0,245,255,.08);color:var(--cyan);border:1px solid rgba(0,245,255,.25)}
+    .badge-y{background:rgba(255,214,0,.08);color:var(--yellow);border:1px solid rgba(255,214,0,.25)}
+    .a-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,8vw,76px);line-height:.9;letter-spacing:1px;margin-bottom:6px}
+    .name-p{background:linear-gradient(120deg,#fff,var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .name-c{background:linear-gradient(120deg,#fff,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .name-y{background:linear-gradient(120deg,#fff,var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .a-genre{font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey);margin-bottom:20px}
+    .a-bio{font-size:15px;color:rgba(245,240,255,.72);line-height:1.8;margin-bottom:28px}
+    .a-bio strong{color:var(--white)}
+
+    /* genre tags */
+    .a-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+    .gtag{font-size:12px;font-weight:600;padding:5px 12px;border-radius:50px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--white)}
+
+    /* social links */
+    .a-social{display:flex;gap:10px;flex-wrap:wrap}
+    .slink{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:50px;font-size:13px;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,.1);color:var(--white);background:rgba(255,255,255,.04);transition:border-color .2s,background .2s}
+    .slink:hover{border-color:var(--pink);background:rgba(255,26,117,.07)}
+    .slink.yt{border-color:rgba(255,0,0,.25)}.slink.yt:hover{border-color:#f00;background:rgba(255,0,0,.07)}
+    .slink.sp{border-color:rgba(30,215,96,.25)}.slink.sp:hover{border-color:#1ED760;background:rgba(30,215,96,.07)}
+
+    /* DISCOGRAPHY */
+    .disco-wrap{background:var(--dark2);border-radius:22px;padding:28px;border:1px solid rgba(255,255,255,.06)}
+    .disco-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .disco-header h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.5px}
+    .disco-count{font-size:12px;color:var(--grey);font-weight:600}
+    .disco-list{display:flex;flex-direction:column;gap:2px}
+    .di{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:12px;transition:background .2s;cursor:default}
+    .di:hover{background:rgba(255,255,255,.04)}
+    .di-num{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(255,255,255,.15);width:20px;text-align:right;flex-shrink:0}
+    .di-icon{width:38px;height:38px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.5px}
+    .ic-p{background:rgba(255,26,117,.15);color:var(--pink)}
+    .ic-c{background:rgba(0,245,255,.1);color:var(--cyan)}
+    .ic-y{background:rgba(255,214,0,.1);color:var(--yellow)}
+    .di-info{flex:1;min-width:0}
+    .di-info h4{font-size:14px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .di-info p{font-size:12px;color:var(--grey)}
+    .di-year{font-size:12px;font-weight:700;color:var(--grey);background:rgba(255,255,255,.05);padding:3px 10px;border-radius:50px;flex-shrink:0}
+    .di-new{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--pink);background:rgba(255,26,117,.1);border:1px solid rgba(255,26,117,.25);padding:2px 8px;border-radius:50px;flex-shrink:0}
+
+    /* VIDEO MODAL */
+    .vmodal{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:20px}
+    .vmodal.open{display:flex}
+    .vm-inner{position:relative;width:100%;max-width:900px}
+    .vm-close{position:absolute;top:-46px;right:0;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+    .vm-close:hover{background:rgba(255,26,117,.2);border-color:var(--pink)}
+    .vm-inner iframe{width:100%;aspect-ratio:16/9;border-radius:16px;border:none}
+
+    /* FOOTER */
+    footer{text-align:center;padding:36px 24px;border-top:1px solid rgba(255,255,255,.05);margin-top:48px}
+    .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:10px;text-decoration:none}
+    footer p{font-size:12px;color:var(--grey);line-height:1.9}
+    footer a{color:var(--pink);text-decoration:none}
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      nav{padding:0 16px}
+      .nav-links{display:none}
+      .ah{grid-template-columns:1fr;gap:28px}
+      .vid-row{grid-template-columns:repeat(3,1fr)}
+      .section{padding:40px 16px}
+    }
+    @media(max-width:480px){
+      .vid-row{grid-template-columns:repeat(2,1fr)}
+      .tab{font-size:14px;padding:14px 8px}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">NUIT DE NOSY BE</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Billetterie</a></li>
+    <li><a href="artistes.html" class="active">Artistes</a></li>
+  </ul>
+  <a class="nav-pill" href="index.html#tickets">Acheter mon billet</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="ph-label">Line-up · 20 Juin 2026</div>
+  <h1 class="ph-title">Les Artistes</h1>
+  <p class="ph-sub">Trois univers, une seule nuit. Découvre leurs sons, leurs clips et leur discographie.</p>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <a class="tab active" data-id="rimka" href="#rimka">
+      <div class="tab-dot" style="background:var(--pink)"></div>Rim-Ka
+    </a>
+    <a class="tab" data-id="ckycky" href="#ckycky">
+      <div class="tab-dot" style="background:var(--cyan)"></div>Ckycky
+    </a>
+    <a class="tab" data-id="majesty" href="#majesty">
+      <div class="tab-dot" style="background:var(--yellow)"></div>Majesty
+    </a>
+  </div>
+</div>
+
+<!-- ════════ RIM-KA ════════ -->
+<div class="artist-section visible" id="rimka">
+  <div class="section">
+    <div class="ah">
+
+      <!-- Media -->
+      <div class="ah-media">
+        <div class="ah-main" onclick="openV('stlvGoppr4A')">
+          <img src="https://img.youtube.com/vi/stlvGoppr4A/maxresdefault.jpg" alt="Rim-Ka KAFIRY" loading="lazy" onerror="this.src='https://img.youtube.com/vi/stlvGoppr4A/hqdefault.jpg'"/>
+          <div class="ah-overlay"></div>
+          <div class="play-overlay">
+            <div class="play-big" style="background:rgba(255,26,117,.9)">
+              <svg width="26" height="26" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="vid-row">
+          <div class="vthumb" onclick="openV('c1hzvxCMOAc')">
+            <img src="https://img.youtube.com/vi/c1hzvxCMOAc/mqdefault.jpg" alt="African Queen" loading="lazy"/>
+            <div class="vthumb-ov"><div class="play-sm" style="background:rgba(255,26,117,.85)"><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+            <div class="vthumb-title">African Queen</div>
+          </div>
+          <div class="vthumb" onclick="openV('sJpXFlRmIRs')">
+            <img src="https://img.youtube.com/vi/sJpXFlRmIRs/mqdefault.jpg" alt="TSY MAGNINO" loading="lazy"/>
+            <div class="vthumb-ov"><div class="play-sm" style="background:rgba(255,26,117,.85)"><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+            <div class="vthumb-title">TSY MAGNINO</div>
+          </div>
+          <div class="vthumb" onclick="openV('NVG2WoVhM_A')">
+            <img src="https://img.youtube.com/vi/NVG2WoVhM_A/mqdefault.jpg" alt="TEGNA IZY" loading="lazy"/>
+            <div class="vthumb-ov"><div class="play-sm" style="background:rgba(255,26,117,.85)"><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+            <div class="vthumb-title">TEGNA IZY</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="ah-info">
+        <div class="a-num">ARTISTE 01 / 03</div>
+        <div class="a-badge badge-p">Tête d'affiche</div>
+        <h2 class="a-name name-p">Rim-Ka</h2>
+        <div class="a-genre">Afropop · Trap Malgache · Bongo Flavor</div>
+        <p class="a-bio">
+          Né à Tamatave, <strong>Rim-Ka</strong> (Ulrich Audrey Jérémie) est devenu en moins de deux ans l'icône de l'afropop malgache. Ses flows trap, ses mélodies soul et ses influences bongo flavor font de lui un artiste unique sur le continent. Sur scène, c'est une énergie brute qui te fait chanter en malagasy même si tu ne parles pas la langue.
+        </p>
+        <div class="a-tags">
+          <span class="gtag">Afropop</span><span class="gtag">Trap</span><span class="gtag">Soul</span><span class="gtag">Bongo Flavor</span><span class="gtag">Live performer</span>
+        </div>
+        <div class="a-social">
+          <a class="slink yt" href="https://www.youtube.com/channel/UCeTDOx43XTsFyYuj9LceqSg" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#ff0000"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+            YouTube
+          </a>
+          <a class="slink sp" href="https://open.spotify.com/artist/2m7fXOWFCi9BaHMkWB4jIu" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#1ED760"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            Spotify
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISCO -->
+    <div class="disco-wrap">
+      <div class="disco-header">
+        <h3>Discographie</h3>
+        <span class="disco-count">7 sorties</span>
+      </div>
+      <div class="disco-list">
+        <div class="di"><div class="di-num">1</div><div class="di-icon ic-p">MV</div><div class="di-info"><h4>KAFIRY</h4><p>Single officiel</p></div><span class="di-new">Nouveau</span><span class="di-year">2026</span></div>
+        <div class="di"><div class="di-num">2</div><div class="di-icon ic-p">SP</div><div class="di-info"><h4>Glita</h4><p>Single</p></div><span class="di-year">2025</span></div>
+        <div class="di"><div class="di-num">3</div><div class="di-icon ic-p">SP</div><div class="di-info"><h4>You &amp; I (Tananao)</h4><p>Single</p></div><span class="di-year">2024</span></div>
+        <div class="di"><div class="di-num">4</div><div class="di-icon ic-p">FT</div><div class="di-info"><h4>TEGNA IZY</h4><p>feat. Lil Stone</p></div><span class="di-year">2024</span></div>
+        <div class="di"><div class="di-num">5</div><div class="di-icon ic-p">MV</div><div class="di-info"><h4>TSY MAGNINO</h4><p>Single officiel</p></div><span class="di-year">2023</span></div>
+        <div class="di"><div class="di-num">6</div><div class="di-icon ic-p">MV</div><div class="di-info"><h4>African Queen</h4><p>Single officiel</p></div><span class="di-year">2022</span></div>
+        <div class="di"><div class="di-num">7</div><div class="di-icon ic-p">EP</div><div class="di-info"><h4>Afro-Fusion EP</h4><p>feat. Wizking</p></div><span class="di-year">2021</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ CKYCKY ════════ -->
+<div class="artist-section" id="ckycky">
+  <div class="section">
+    <div class="ah">
+      <div class="ah-media">
+        <div class="ah-main" onclick="openV('z3LCYOvqNYA')">
+          <img src="https://img.youtube.com/vi/z3LCYOvqNYA/maxresdefault.jpg" alt="Ckycky Anao ro tiako" loading="lazy" onerror="this.src='https://img.youtube.com/vi/z3LCYOvqNYA/hqdefault.jpg'"/>
+          <div class="ah-overlay"></div>
+          <div class="play-overlay">
+            <div class="play-big" style="background:rgba(0,245,255,.85)">
+              <svg width="26" height="26" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="vid-row">
+          <div class="vthumb" onclick="openV('HbA8LclLYvU')">
+            <img src="https://img.youtube.com/vi/HbA8LclLYvU/mqdefault.jpg" alt="Lesambilo" loading="lazy"/>
+            <div class="vthumb-ov"><div class="play-sm" style="background:rgba(0,245,255,.8)"><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+            <div class="vthumb-title">Lesambilo (Officiel)</div>
+          </div>
+          <div class="vthumb" onclick="openV('yps1_ns49eA')">
+            <img src="https://img.youtube.com/vi/yps1_ns49eA/mqdefault.jpg" alt="Lesambilo Clip" loading="lazy"/>
+            <div class="vthumb-ov"><div class="play-sm" style="background:rgba(0,245,255,.8)"><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+            <div class="vthumb-title">Lesambilo (Clip)</div>
+          </div>
+          <div class="vthumb" onclick="openV('dnYz_qwLtyA')">
+            <img src="https://img.youtube.com/vi/dnYz_qwLtyA/mqdefault.jpg" alt="Anao ro tiako" loading="lazy"/>
+            <div class="vthumb-ov"><div class="play-sm" style="background:rgba(0,245,255,.8)"><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+            <div class="vthumb-title">Anao ro tiako</div>
+          </div>
+        </div>
+      </div>
+      <div class="ah-info">
+        <div class="a-num">ARTISTE 02 / 03</div>
+        <div class="a-badge badge-c">Invité spécial</div>
+        <h2 class="a-name name-c">Ckycky</h2>
+        <div class="a-genre">Afro-Malagasy · R&amp;B · Urban Pop</div>
+        <p class="a-bio">
+          Né à Vangaindrano, grandi à Morondava, <strong>Ckycky</strong> a explosé en 2022 avec <em>Anao rô tiako</em>, viral sur TikTok. Il chante en plusieurs dialectes malgaches et puise dans la richesse culturelle de toute l'île. Son Afro-Malagasy moderne lui a ouvert les grandes scènes de Tana à la province, puis au-delà des frontières.
+        </p>
+        <div class="a-tags">
+          <span class="gtag">Afro-Malagasy</span><span class="gtag">R&B</span><span class="gtag">Urban Pop</span><span class="gtag">Multi-dialectes</span><span class="gtag">TikTok viral</span>
+        </div>
+        <div class="a-social">
+          <a class="slink yt" href="https://www.youtube.com/results?search_query=ckycky+madagascar" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#ff0000"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+            YouTube
+          </a>
+          <a class="slink sp" href="https://popnable.com/madagascar/songs/747815-ckycky-lesambilo" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#1ED760"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            Écouter
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="disco-wrap">
+      <div class="disco-header"><h3>Discographie</h3><span class="disco-count">5 sorties</span></div>
+      <div class="disco-list">
+        <div class="di"><div class="di-num">1</div><div class="di-icon ic-c">MV</div><div class="di-info"><h4>Anao rô tiako</h4><p>Single viral TikTok</p></div><span class="di-year">2022</span></div>
+        <div class="di"><div class="di-num">2</div><div class="di-icon ic-c">MV</div><div class="di-info"><h4>Lesambilo</h4><p>Single officiel</p></div><span class="di-year">2022</span></div>
+        <div class="di"><div class="di-num">3</div><div class="di-icon ic-c">SP</div><div class="di-info"><h4>Soroka</h4><p>Single</p></div><span class="di-year">2023</span></div>
+        <div class="di"><div class="di-num">4</div><div class="di-icon ic-c">EP</div><div class="di-info"><h4>Afro Malagasy EP</h4><p>Fusion multi-dialectes</p></div><span class="di-year">2023</span></div>
+        <div class="di"><div class="di-num">5</div><div class="di-icon ic-c">LV</div><div class="di-info"><h4>Tournées 2024</h4><p>Scènes nationales &amp; internationales</p></div><span class="di-year">2024</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ MAJESTY ════════ -->
+<div class="artist-section" id="majesty">
+  <div class="section">
+    <div class="ah">
+      <div class="ah-media">
+        <div class="ah-main" onclick="openV('K09qCjqYzv8')">
+          <img src="https://img.youtube.com/vi/K09qCjqYzv8/maxresdefault.jpg" alt="Majesty Tendanao" loading="lazy" onerror="this.src='https://img.youtube.com/vi/K09qCjqYzv8/hqdefault.jpg'"/>
+          <div class="ah-overlay"></div>
+          <div class="play-overlay">
+            <div class="play-big" style="background:rgba(255,214,0,.9)">
+              <svg width="26" height="26" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="vid-row">
+          <div class="vthumb" onclick="openV('3Vece1Q8kwQ')">
+            <img src="https://img.youtube.com/vi/3Vece1Q8kwQ/mqdefault.jpg" alt="Asina Meme" loading="lazy"/>
+            <div class="vthumb-ov"><div class="play-sm" style="background:rgba(255,214,0,.85)"><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+            <div class="vthumb-title">ASINA MEME</div>
+          </div>
+          <div class="vthumb" onclick="openV('5mtPMcdip-Y')">
+            <img src="https://img.youtube.com/vi/5mtPMcdip-Y/mqdefault.jpg" alt="7ALINA" loading="lazy"/>
+            <div class="vthumb-ov"><div class="play-sm" style="background:rgba(255,214,0,.85)"><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+            <div class="vthumb-title">7ALINA</div>
+          </div>
+          <div class="vthumb" onclick="openV('K09qCjqYzv8')">
+            <img src="https://img.youtube.com/vi/K09qCjqYzv8/mqdefault.jpg" alt="TENDANAO" loading="lazy"/>
+            <div class="vthumb-ov"><div class="play-sm" style="background:rgba(255,214,0,.85)"><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+            <div class="vthumb-title">TENDANAO</div>
+          </div>
+        </div>
+      </div>
+      <div class="ah-info">
+        <div class="a-num">ARTISTE 03 / 03</div>
+        <div class="a-badge badge-y">Révélation</div>
+        <h2 class="a-name name-y">Majesty</h2>
+        <div class="a-genre">Dancehall · Afro Urban · Malagasy Vibes</div>
+        <p class="a-bio">
+          <strong>Majesty</strong> incarne la nouvelle génération du son urbain malgache. Ses rythmes dancehall enflammés et ses textes sincères font de lui une figure incontournable de la scène locale. Sur scène, il est incapable de laisser un spectateur passif — chaque performance est une invitation collective à danser jusqu'au bout.
+        </p>
+        <div class="a-tags">
+          <span class="gtag">Dancehall</span><span class="gtag">Afro Urban</span><span class="gtag">Malagasy</span><span class="gtag">Dancefloor</span><span class="gtag">Live energy</span>
+        </div>
+        <div class="a-social">
+          <a class="slink yt" href="https://www.youtube.com/results?search_query=majesty+madagascar+gasy" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#ff0000"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+            YouTube
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="disco-wrap">
+      <div class="disco-header"><h3>Discographie</h3><span class="disco-count">5 sorties</span></div>
+      <div class="disco-list">
+        <div class="di"><div class="di-num">1</div><div class="di-icon ic-y">MV</div><div class="di-info"><h4>TENDANAO</h4><p>Single · Madaghost Production</p></div><span class="di-year">2024</span></div>
+        <div class="di"><div class="di-num">2</div><div class="di-icon ic-y">MV</div><div class="di-info"><h4>ASINA MEME</h4><p>Single · Madaghost Production</p></div><span class="di-year">2024</span></div>
+        <div class="di"><div class="di-num">3</div><div class="di-icon ic-y">FT</div><div class="di-info"><h4>7ALINA</h4><p>feat. Malm &amp; Nael</p></div><span class="di-year">2024</span></div>
+        <div class="di"><div class="di-num">4</div><div class="di-icon ic-y">SP</div><div class="di-info"><h4>Bôjo</h4><p>Single viral</p></div><span class="di-year">2023</span></div>
+        <div class="di"><div class="di-num">5</div><div class="di-icon ic-y">LV</div><div class="di-info"><h4>Premiers projets</h4><p>Scènes &amp; collaborations</p></div><span class="di-year">2022</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="index.html">LA NUIT DE NOSY BE 2</a>
+  <p>Un événement <strong>MK &amp; Company</strong> · Production <strong>Sart Studio</strong><br/>
+  <a href="index.html#tickets">→ Acheter mon billet</a> · <a href="tel:+261384453352">+261 38 44 533 52</a><br/>
+  <span style="opacity:.4;font-size:11px;">© 2026 MK &amp; Company</span></p>
+</footer>
+
+<!-- VIDEO MODAL -->
+<div class="vmodal" id="vm">
+  <div class="vm-inner">
+    <button class="vm-close" onclick="closeV()"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <iframe id="vif" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+  </div>
+</div>
+
+<script>
+/* Video modal */
+function openV(id){
+  document.getElementById('vif').src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+  document.getElementById('vm').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeV(){
+  document.getElementById('vif').src='';
+  document.getElementById('vm').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('vm').addEventListener('click',e=>{if(e.target===document.getElementById('vm'))closeV();});
+
+/* Tabs */
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',e=>{
+    e.preventDefault();
+    const id=tab.dataset.id;
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.artist-section').forEach(s=>s.classList.remove('visible'));
+    tab.classList.add('active');
+    document.getElementById(id).classList.add('visible');
+    window.scrollTo({top:document.querySelector('.tabs-wrap').offsetTop-64,behavior:'smooth'});
+  });
+});
+
+/* Active tab from URL hash */
+const hash=location.hash.replace('#','');
+if(hash&&document.getElementById(hash)){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.artist-section').forEach(s=>s.classList.remove('visible'));
+  document.querySelector(`[data-id="${hash}"]`)?.classList.add('active');
+  document.getElementById(hash).classList.add('visible');
+}
+</script>
+</body>
+</html>
