@@ -228,6 +228,7 @@
   <ul class="nav-links">
     <li><a href="index.html" class="active">Billetterie</a></li>
     <li><a href="artistes.html">Artistes</a></li>
+    <li><a href="evenements.html">Événements</a></li>
   </ul>
   <a class="nav-pill" href="#tickets">Acheter mon billet</a>
 </nav>
@@ -364,7 +365,7 @@
 
         <div class="pay-label">Mode de paiement</div>
         <div class="pay-pills">
-          <label class="ppill sel" id="pt"><input type="radio" name="pay" value="telma" checked/><div class="pdot" style="background:#E00020"></div>Telma Money</label>
+          <label class="ppill sel" id="pt"><input type="radio" name="pay" value="telma" checked/><div class="pdot" style="background:#E00020"></div>Mvola (Telma)</label>
           <label class="ppill" id="po"><input type="radio" name="pay" value="orange"/><div class="pdot" style="background:#FF6600"></div>Orange Money</label>
           <label class="ppill" id="pc"><input type="radio" name="pay" value="card"/><div class="pdot" style="background:#2563EB"></div>Carte Bleue</label>
         </div>
@@ -455,11 +456,11 @@ function upQ(){document.getElementById('qn').textContent=qty;document.getElement
 /* Payment */
 let pm='telma';
 const pinfo={
-  telma:'<strong>Telma Money :</strong> tu recevras une demande de paiement sur ton numéro. Confirme pour valider ta réservation.',
-  orange:'<strong>Orange Money :</strong> une demande sera envoyée sur ton numéro Orange. Valide avec ton code.',
-  card:'<strong>Carte Bleue :</strong> paiement sécurisé via réseau bancaire. Données chiffrées.'
+  telma:'<strong>Mvola (Telma) :</strong> envoie le montant au <strong style="color:#fff">034 14 700 47</strong> · Indique ton nom en référence. Tu recevras une confirmation SMS.',
+  orange:'<strong>Orange Money :</strong> envoie le montant au <strong style="color:#fff">032 90 322 27</strong> · Indique ton nom en référence. Confirmation SMS garantie.',
+  card:'<strong>Carte Bleue (Stripe) :</strong> paiement 100% sécurisé. Tu seras redirigé vers notre page Stripe. Remboursement garanti en cas de problème.'
 };
-const mlbl={telma:'Telma Money',orange:'Orange Money',card:'Carte Bleue'};
+const mlbl={telma:'Mvola (Telma)',orange:'Orange Money',card:'Carte Bleue'};
 document.querySelectorAll('.ppill').forEach(p=>{
   p.addEventListener('click',()=>{
     document.querySelectorAll('.ppill').forEach(x=>x.classList.remove('sel'));
@@ -484,19 +485,33 @@ document.getElementById('mclose').onclick=closeM;
 document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeM();});
 
 /* Confirm */
+// ⚠️ STRIPE : remplace cette URL par ton Payment Link Stripe réel
+// Crée-le sur dashboard.stripe.com → Payment Links → Create
+const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/REMPLACE_PAR_TON_LIEN';
+
 document.getElementById('bconfirm').onclick=function(){
   const n=document.getElementById('nom').value.trim(),t=document.getElementById('tel').value.trim();
   if(!n||!t){alert('Merci de remplir ton nom et ton numéro.');return;}
+
+  // Carte Bleue → redirection Stripe Payment Link
+  if(pm==='card'){
+    const stripeUrl=`${STRIPE_PAYMENT_LINK}?prefilled_email=&client_reference_id=NNB2-${Math.random().toString(36).substr(2,6).toUpperCase()}&quantity=${qty}`;
+    window.open(stripeUrl,'_blank');
+    return;
+  }
+
   this.disabled=true; this.textContent='Traitement…';
   setTimeout(()=>{
     document.getElementById('fview').style.display='none';
     const ref='NNB2-'+Math.random().toString(36).substr(2,8).toUpperCase();
+    const numPaiement = pm==='telma' ? '034 14 700 47' : '032 90 322 27';
     document.getElementById('trecap').innerHTML=`
       <div><span>Événement</span><strong>La Nuit de Nosy Be 2</strong></div>
       <div><span>Nom</span><strong>${n}</strong></div>
       <div><span>Billets</span><strong>${qty}</strong></div>
       <div><span>Total</span><strong>${fmt(qty*PR)}</strong></div>
       <div><span>Paiement</span><strong>${mlbl[pm]}</strong></div>
+      <div><span>Numéro</span><strong>${numPaiement}</strong></div>
       <div><span>Référence</span><strong>${ref}</strong></div>`;
     document.getElementById('sview').style.display='block';
     this.disabled=false; this.textContent='Confirmer et payer';
